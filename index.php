@@ -25,13 +25,13 @@
                 <div class="menubar-container">
                     <div class="menubar">
                         <div class="menu">
-                            <a href="#">Home</a>
+                            <a href="#" class="menu-a active-tab">Home</a>
                         </div>
                         <div class="menu">
-                            <a href="#">About</a>
+                            <a href="#" class="menu-a">About</a>
                         </div>
                         <div class="menu">
-                            <a href="#">Contact us</a>
+                            <a href="#" class="menu-a">Contact us</a>
                         </div>
                     </div>
                 </div>
