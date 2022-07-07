@@ -27,7 +27,7 @@
     /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
-    box-shadow: 5px 0 50px black;
+    box-shadow: 0 0 6px black;
 
 }
 
@@ -52,7 +52,6 @@
 {
     height: 100%;
     width: auto;
-    border-radius: 50%;
 }
 
 .menubar-container
@@ -96,7 +95,17 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    font-size: 1.1em;
     color: var(--primary);
+    transition-duration: .5s;
+}
+
+.menu-a:hover
+{
+    border-radius: 5px;
+    background-color: var(--primary);
+    color: #fff;
+    transition-duration: .5s;
 }
 
 .active-tab
@@ -110,7 +119,7 @@
 {
     width: 20%;
     height: 100%;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
     justify-content: space-between;
 }
@@ -136,6 +145,8 @@
     border-radius: 50px;
     background-color: #fff;
     color: var(--primary);
+    transition-duration: .5s;
+    font-size: 1.1em;
 }
 
 .login-container button:hover,
@@ -146,4 +157,5 @@
     background-color: var(--primary);
     color: #fff;
     cursor: pointer;
+    transition-duration: .5s;
 }
