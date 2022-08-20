@@ -1,4 +1,15 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['mobile']))
+{
+    header('Location: ../../index.php');
+}
+
+if(isset($_POST["logout-btn"]))
+{
+    header('Location: ../../api/logout.php');
+}
 
 ?>
 
@@ -11,6 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty</title>
 
+    <!-- google font api -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
@@ -36,11 +48,11 @@
                 </div>
                 
                 <div class="login-profile-container">
-                    <div class="login-cotainer">
+                    <!-- <div class="login-cotainer">
                         <div class="login">
                             <button>Login</button>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="profile-container">
                         <div class="profile">
                             <button class="profile-icon" onclick="profileToggle()">
@@ -52,9 +64,9 @@
                                     <div class="profile-btn">
                                         <button>Profile</button>
                                     </div>
-                                    <div class="logout">
-                                        <button>Logout</button>
-                                    </div>
+                                    <form method="POST" class="logout">
+                                        <button name="logout-btn">Logout</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +77,7 @@
 
         <!-- code for content container -->
         <div class="content-container">
-
+            <?php echo $_SESSION['mobile']; ?>
         </div>
     </div>
 

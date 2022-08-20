@@ -1,7 +1,5 @@
 :root {
-    --component-color: #f26a1b;
-    --primary-color: #100720;
-    --second-primry-color: white;
+    --primary-color: #183153;
     --grey-color: #d3d1d8fc;
 }
 
@@ -9,27 +7,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
     /* background-color: var(--primary-color);*/
 }
-
-body marquee {
-    font-size: 20px;
-    color: blue;
-    margin-top: 10px;
+body
+{
+    background-color: var(--grey-color);
 }
 
 .container {
     width: 100%;
     height: auto;
-    background-color: var(--second-primry-color);
-    /* border: 2px solid red;*/
+    background-color: var(--grey-color);
+    /* border: 2px solid red; */
     display: flex;
     justify-content: center;
 }
 
 .subcontainer {
     width: 50%;
-    height: 500px;
+    height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,16 +35,18 @@ body marquee {
 
 .login-page {
     width: 60%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    background-color: var(--grey-color);
+    align-items: center;
+    background-color: #fff;
     border-radius: 10px;
-    /*  border: 2px solid greenyellow;*/
+    border: 2px solid greenyellow;
+    margin-top: 30px;
+    padding-bottom: 20px;
 }
 
-.hading-text {
+.title-text {
     width: auto;
     height: auto;
     display: flex;
@@ -55,50 +54,34 @@ body marquee {
     justify-content: center;
     /* align-items: center;*/
     font-size: x-large;
-    color: black;
+    font-weight: 800;
+    color: var(--primary-color);
     margin: 10px 0;
     font-family: Algerian;
 }
 
-.login-id {
-    width: 100%;
-    height: auto;
+.input-box
+{
+    width: 90%;
+    height: 50px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid red;*/
+    /* border: 2px solid red; */
     margin-top: 10px;
 }
 
-#input {
-    width: 90%;
-    height: 50px;
-    border-radius: 5px;
-    font-size: 20px;
-    padding: 0 5px;
-    outline-color: var(--primary-color);
-    border: none;
-}
-
-.login-password {
+.input-box input
+{
     width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /*  border: 2px solid blue;*/
-    margin-top: 10px;
-}
-
-#password {
-    width: 90%;
-    height: 50px;
+    height: 100%;
+    /* border: 2px solid green; */
+    padding-left: 10px;
     border-radius: 5px;
-    font-size: 20px;
-    padding: 0 5px;
-    border: none;
+    border: 1px solid var(--primary-color);
+    outline: none;
+    font-size: medium;
 }
 
 .login-btn-contanier {
@@ -110,6 +93,22 @@ body marquee {
     align-items: center;
     /* border: 2px solid red; */
     margin-top: 20px;
+}
+.login-as
+{
+    width:100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.login-as p
+{
+    display: flex;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    color: var(--primary-color);
+    font-size: larger;
 }
 
 .login-btn {
@@ -127,12 +126,35 @@ body marquee {
     cursor: pointer;
     border-radius: 8px;
     font-size: 15px;
+    color: var(--primary-color);
     padding: 10px 0;
     margin: 5px 5px;
-    border: none;
+    border: 1px solid var(--primary-color);
 }
 
 button:hover {
-    color: white;
-    background-color: var(--component-color);
+    color: #fff;
+    background-color: var(--primary-color);
+}
+
+@media screen and (max-width: 480px)
+{
+    .subcontainer
+    {
+        width: 100%;
+    }
+
+    .login-page
+    {
+        width: 90%;
+    }
+}
+
+
+@media screen and (max-width: 750px)
+{
+    .subcontainer
+    {
+        width: 80%;
+    }
 }
