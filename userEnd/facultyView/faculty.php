@@ -143,24 +143,27 @@ if(isset($_POST["logout-btn"]))
         </div>
 
         <!-- for all student details  -->
-        <div class="students-details-main-container">
+        <form action="../../api/takeAttendance.php" method="POST" onsubmit="return confirm('Are You Sure? You Want to Submit')" class="students-details-main-container" id="students-details-main-container-id">
             <div class="students-details-title">
                 <p>Student List</p>
             </div>
             <div class="students-details-container" id="students-details-container-id">
 
-                <div class="students-details">
+                <!-- <div class="students-details">
                     <div class="registration-no">
                         <p>192H1A05G3</p>
                     </div>
                     <div class="absent-present-box">
                         <input type="checkbox">
                     </div>
-                </div>                
+                </div>                 -->
 
             </div>
+            <div class="submit-attendance-container">
+                <button type="submit" id="submit-attendance" name="submit-attendance">Submit Attendance</button>
+            </div>
 
-        </div>
+        </form>
     </div>
 
 
@@ -169,7 +172,28 @@ if(isset($_POST["logout-btn"]))
 
     <script type="text/javascript">
         $(document).ready(function(){
+            // hide submit attendance btn 
 
+            // function confirmSubmit()
+            // {
+            //     return confirm("Are you sure");
+            // }
+
+            // for submit attendance click
+            // $("#students-details-main-container-id").submit(function(e){
+            //     e.preventDefault();
+            //     console.log("attendance submited");
+            // });
+            
+            
+            // function for auto refresh
+            const autoRefresh = ()=>
+            {
+                $("#students-details-container-id").children().length>0?$("#submit-attendance").show():$("#submit-attendance").hide();
+            }
+
+            setInterval(autoRefresh, 100);
+            
             //ajax code for load student data 
             function loadStudentData(course, regulation, branch, section)
             {
@@ -183,13 +207,16 @@ if(isset($_POST["logout-btn"]))
                 });
             }
 
-            $("#fetch-btn").on("click", function(){
+            $("#fetch-btn").on("click", ()=>{
                 let course=$("#course").val();
                 let regulation=$("#regulation").val();
                 let branch=$("#branch").val();
                 let section=$("#section").val();
                 console.log("clicked");
                 loadStudentData(course, regulation, branch, section);
+
+                // $("#students-details-container-id").children().length>0?$("#submit-attendance").show():$("#submit-attendance").hide();
+
             });
 
             // load data function to load data fro database

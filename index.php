@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+if(isset($_SESSION['reg_no']))
+{
+    if($_SESSION['user_type']=='faculty')
+    {
+        header('Location: userEnd/facultyView/faculty.php');
+    }
+}
+
 if(isset($_POST["faculty-login"]))
     {
         $username=$_POST["username"];
@@ -35,6 +43,8 @@ if(isset($_POST["faculty-login"]))
                 $_SESSION['mobile_no']=$row["mobile_no"];
                 $_SESSION['email']=$row["email"];
                 $_SESSION['branch']=$row["branch"];
+                $_SESSION['user_type']='faculty';
+
                 header('Location: userEnd/facultyView/faculty.php');
             }
             else
