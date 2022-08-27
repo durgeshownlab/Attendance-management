@@ -11,6 +11,12 @@ if(isset($_POST["logout-btn"]))
     header('Location: ../../api/logout.php');
 }
 
+if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
+{
+    echo "<script>alert(\"Data Submited Successfully\");</script>";
+    unset($_SESSION['data_inserted']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -136,6 +142,12 @@ if(isset($_POST["logout-btn"]))
                     </select>
                 </div>
 
+                <div class="input-box subject-contanier">
+                    <select name="subject" id="subject">
+                        <!-- <option value="">--select section--</option> -->
+                    </select>
+                </div>
+
                 <div class="input-box fetch-btn-contanier">
                     <button id="fetch-btn" name="fetch-btn">Fetch Details</button>
                 </div>
@@ -159,10 +171,12 @@ if(isset($_POST["logout-btn"]))
                 </div>                 -->
 
             </div>
+            <div class="empty-msg">
+
+            </div>
             <div class="submit-attendance-container">
                 <button type="submit" id="submit-attendance" name="submit-attendance">Submit Attendance</button>
             </div>
-
         </form>
     </div>
 
@@ -172,19 +186,21 @@ if(isset($_POST["logout-btn"]))
 
     <script type="text/javascript">
         $(document).ready(function(){
-            // hide submit attendance btn 
-
-            // function confirmSubmit()
-            // {
-            //     return confirm("Are you sure");
-            // }
-
-            // for submit attendance click
-            // $("#students-details-main-container-id").submit(function(e){
-            //     e.preventDefault();
-            //     console.log("attendance submited");
-            // });
             
+            //function for notthing to show;
+            const nothingToShow = ()=>{
+                if($("#students-details-container-id").children().length==0)
+                {
+                    $(".empty-msg").html("Nothing to show");
+                    $(".empty-msg").show();
+                }
+                else
+                {
+                    $(".empty-msg").hide();
+                }
+            }
+
+            setInterval(nothingToShow, 100);
             
             // function for auto refresh
             const autoRefresh = ()=>
@@ -194,13 +210,14 @@ if(isset($_POST["logout-btn"]))
 
             setInterval(autoRefresh, 100);
             
+
             //ajax code for load student data 
-            function loadStudentData(course, regulation, branch, section)
+            function loadStudentData(course, regulation, branch, section, subject)
             {
                 $.ajax({
                     url: "../../api/loadStudentDetail.php",
                     type: "POST",
-                    data: {course: course, regulation: regulation, branch: branch, section: section},
+                    data: {course: course, regulation: regulation, branch: branch, section: section, subject: subject},
                     success: function(data){
                         $("#students-details-container-id").html(data);
                     }
@@ -212,20 +229,22 @@ if(isset($_POST["logout-btn"]))
                 let regulation=$("#regulation").val();
                 let branch=$("#branch").val();
                 let section=$("#section").val();
+                let subject=$("#subject").val();
                 console.log("clicked");
-                loadStudentData(course, regulation, branch, section);
+                
+                (subject=="")?alert("Please Select Subject"):loadStudentData(course, regulation, branch, section, subject);
 
                 // $("#students-details-container-id").children().length>0?$("#submit-attendance").show():$("#submit-attendance").hide();
 
             });
 
             // load data function to load data fro database
-            function loadData(type, course, regulation, branch)
+            function loadData(type, course, regulation, branch, section)
             {
                 $.ajax({
                     url: "../../api/loadInfo.php",
                     type: "POST",
-                    data: {type: type, course: course, regulation: regulation, branch: branch},
+                    data: {type: type, course: course, regulation: regulation, branch: branch, section: section},
                     success: function(data){
                         if(type=="regulation")
                         {
@@ -242,6 +261,11 @@ if(isset($_POST["logout-btn"]))
                             console.log(data);
                             $("#section").html(data);
                         }
+                        else if(type=="subject")
+                        {
+                            console.log(data);
+                            $("#subject").html(data);
+                        }
                         else
                         {
                             $("#course").append(data);
@@ -254,6 +278,7 @@ if(isset($_POST["logout-btn"]))
             
             // for course
             $("#course").on("change", function(){
+                $("#students-details-container-id").html(""); // removing existing data from student details container
                 let course=$("#course").val();
                 if(course!="")
                 {
@@ -264,6 +289,7 @@ if(isset($_POST["logout-btn"]))
                         $("#regulation").html("<option value=\"\">--Select Regulation--</option>");
                         $("#branch").html("<option value=\"\">--Ignore Select Branch--</option>");
                         $("#section").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject").html("<option value=\"\">--Select Subject--</option>");
                     }
                     else
                     {
@@ -272,6 +298,7 @@ if(isset($_POST["logout-btn"]))
                         $("#regulation").html("<option value=\"\">--Select Regulation--</option>");
                         $("#branch").html("<option value=\"\">--Select Branch--</option>");
                         $("#section").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject").html("<option value=\"\">--Select Subject--</option>");
                     }
                 }
                 else
@@ -279,12 +306,15 @@ if(isset($_POST["logout-btn"]))
                     $("#regulation").html("<option value=\"\">--Select Regulation--</option>");
                     $("#branch").html("<option value=\"\">--Select Branch--</option>");
                     $("#section").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject").html("<option value=\"\">--Select Subject--</option>");
                 }
 
             });
 
             // for regulation
             $("#regulation").on("change", function(){
+                $("#students-details-container-id").html(""); // removing existing data from student details container
+
                 let regulation=$("#regulation").val();
                 let course=$("#course").val();
                 if(regulation!="")
@@ -294,24 +324,29 @@ if(isset($_POST["logout-btn"]))
                         loadData("section", course, regulation,"");
                         $("#branch").html("<option value=\"\">--Ignore Select Branch--</option>");
                         $("#section").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject").html("<option value=\"\">--Select Subject--</option>");
                     }
                     else
                     {
                         loadData("branch", course, regulation);
                         $("#branch").html("<option value=\"\">--Select Branch--</option>");
                         $("#section").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject").html("<option value=\"\">--Select Subject--</option>");
                     }
                 }
                 else
                 {
                     $("#branch").html("<option value=\"\">--Select Branch--</option>");
                     $("#section").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject").html("<option value=\"\">--Select Subject--</option>");
                 }
             });
 
             //for section 
 
             $("#branch").on("change", function(){
+                $("#students-details-container-id").html(""); // removing existing data from student details container
+
                 let regulation=$("#regulation").val();
                 let course=$("#course").val();
                 let branch=$("#branch").val();
@@ -320,14 +355,42 @@ if(isset($_POST["logout-btn"]))
                 {
                     loadData("section", course, regulation, branch);
                     $("#section").html("<option value=\"\">--Select Section--</option>");
-
+                    $("#subject").html("<option value=\"\">--Select Subject--</option>");
                 }
                 else
                 {
                     $("#section").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject").html("<option value=\"\">--Select Subject--</option>");
                 }
 
-            })
+            });
+
+            //for subject 
+
+            $("#section").on("change", function(){
+                $("#students-details-container-id").html(""); // removing existing data from student details container
+
+                let regulation=$("#regulation").val();
+                let course=$("#course").val();
+                let branch=$("#branch").val();
+                let section=$("#section").val();
+
+                if(section!="")
+                {
+                    loadData("subject", course, regulation, branch, section);
+                    $("#subject").html("<option value=\"\">--Select Subject--</option>");
+
+                }
+                else
+                {
+                    $("#subject").html("<option value=\"\">--Select Subject--</option>");
+                }
+
+            });
+
+            $("#subject").on("change", function(){
+                $("#students-details-container-id").html(""); // removing existing data from student details container
+            });
 
         });
     </script>
