@@ -54,5 +54,19 @@
         }
     }
 
+    //for subject loading 
+
+    else if($_POST['type']=="subject")
+    {
+        $sql="select * from subject_table where course_name='".$_POST['course']."' and regulation='".$_POST['regulation']."' and branch='".$_POST['branch']."'";
+        $results=mysqli_query($conn, $sql) or die("query unsuccessful");
+        $output = "<option value=\"\">--Select Subject--</option>";
+    
+        while($row=mysqli_fetch_assoc($results))
+        {
+            $output .= "<option value='{$row['subject']}'>".strtoupper($row['subject'])."</option>";
+        }
+    }
+
     echo $output;
 ?>

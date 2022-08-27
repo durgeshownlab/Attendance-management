@@ -17,6 +17,8 @@ session_start();
         $_SESSION['take_attendance_branch']=$_POST['branch'];
         $_SESSION['take_attendance_regulation']=$_POST['regulation'];
         $_SESSION['take_attendance_section']=$_POST['section'];
+        $_SESSION['take_attendance_subject']=$_POST['subject'];
+
 
         $count =1;
         while($row=mysqli_fetch_assoc($result))
