@@ -387,7 +387,8 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 }
 
             });
-
+            
+            //for subject change
             $("#subject").on("change", function(){
                 $("#students-details-container-id").html(""); // removing existing data from student details container
             });
