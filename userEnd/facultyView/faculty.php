@@ -171,9 +171,11 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 </div>                 -->
 
             </div>
+
             <div class="empty-msg">
 
             </div>
+
             <div class="submit-attendance-container">
                 <button type="submit" id="submit-attendance" name="submit-attendance">Submit Attendance</button>
             </div>
@@ -186,12 +188,12 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
     <script type="text/javascript">
         $(document).ready(function(){
-            
+            var showHideNotification="Nothing to show";
             //function for notthing to show;
             const nothingToShow = ()=>{
                 if($("#students-details-container-id").children().length==0)
                 {
-                    $(".empty-msg").html("Nothing to show");
+                    $(".empty-msg").html(showHideNotification);
                     $(".empty-msg").show();
                 }
                 else
@@ -203,12 +205,19 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             setInterval(nothingToShow, 100);
             
             // function for auto refresh
-            const autoRefresh = ()=>
+            const ShowHideSubmitButton = ()=>
             {
-                $("#students-details-container-id").children().length>0?$("#submit-attendance").show():$("#submit-attendance").hide();
+                if($("#students-details-container-id").children().length>0)
+                {
+                    $("#submit-attendance").show();
+                }
+                else
+                {
+                    $("#submit-attendance").hide();
+                }
             }
 
-            setInterval(autoRefresh, 100);
+            setInterval(ShowHideSubmitButton, 100);
             
 
             //ajax code for load student data 
@@ -219,7 +228,15 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                     type: "POST",
                     data: {course: course, regulation: regulation, branch: branch, section: section, subject: subject},
                     success: function(data){
-                        $("#students-details-container-id").html(data);
+                        if(data=="already taken")
+                        {
+                            // console.log(data);
+                            showHideNotification="Attendance Already Taken";
+                        }
+                        else
+                        {
+                            $("#students-details-container-id").html(data);
+                        }
                     }
                 });
             }
@@ -279,6 +296,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             // for course
             $("#course").on("change", function(){
                 $("#students-details-container-id").html(""); // removing existing data from student details container
+                showHideNotification="Nothing to show";
                 let course=$("#course").val();
                 if(course!="")
                 {
@@ -314,6 +332,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             // for regulation
             $("#regulation").on("change", function(){
                 $("#students-details-container-id").html(""); // removing existing data from student details container
+                showHideNotification="Nothing to show";
 
                 let regulation=$("#regulation").val();
                 let course=$("#course").val();
@@ -346,6 +365,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
             $("#branch").on("change", function(){
                 $("#students-details-container-id").html(""); // removing existing data from student details container
+                showHideNotification="Nothing to show";
 
                 let regulation=$("#regulation").val();
                 let course=$("#course").val();
@@ -369,6 +389,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
             $("#section").on("change", function(){
                 $("#students-details-container-id").html(""); // removing existing data from student details container
+                showHideNotification="Nothing to show";
 
                 let regulation=$("#regulation").val();
                 let course=$("#course").val();
@@ -387,10 +408,11 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 }
 
             });
-            
+
             //for subject change
             $("#subject").on("change", function(){
                 $("#students-details-container-id").html(""); // removing existing data from student details container
+                showHideNotification="Nothing to show";
             });
 
         });
