@@ -5,14 +5,14 @@
     { 
         if(isset($_POST['absent-present-'.$i]))
         {
-            $sql="insert into attendance_table (student_reg_no, faculty_reg_no, attendance_status, course, regulation, branch, section, subject) values('".$_POST['registration-no-'.$i]."', '".$_SESSION['reg_no']."', 1, '".$_SESSION['take_attendance_course']."', '".$_SESSION['take_attendance_regulation']."','".$_SESSION['take_attendance_branch']."','".$_SESSION['take_attendance_section']."','".$_SESSION['take_attendance_subject']."')";
+            $sql="insert into attendance_table (student_reg_no, faculty_reg_no, attendance_status, course, regulation, branch, section, subject, insert_time) values('".$_POST['registration-no-'.$i]."', '".$_SESSION['reg_no']."', 1, '".$_SESSION['take_attendance_course']."', '".$_SESSION['take_attendance_regulation']."','".$_SESSION['take_attendance_branch']."','".$_SESSION['take_attendance_section']."','".$_SESSION['take_attendance_subject']."',CURDATE())";
 
             $result=mysqli_query($conn,$sql) or die("query failed");
             
         }
         else
         {
-            $sql="insert into attendance_table (student_reg_no, faculty_reg_no, attendance_status, course, regulation, branch, section, subject) values('".$_POST['registration-no-'.$i]."', '".$_SESSION['reg_no']."', 0, '".$_SESSION['take_attendance_course']."', '".$_SESSION['take_attendance_regulation']."','".$_SESSION['take_attendance_branch']."','".$_SESSION['take_attendance_section']."','".$_SESSION['take_attendance_subject']."')";
+            $sql="insert into attendance_table (student_reg_no, faculty_reg_no, attendance_status, course, regulation, branch, section, subject, insert_time) values('".$_POST['registration-no-'.$i]."', '".$_SESSION['reg_no']."', 0, '".$_SESSION['take_attendance_course']."', '".$_SESSION['take_attendance_regulation']."','".$_SESSION['take_attendance_branch']."','".$_SESSION['take_attendance_section']."','".$_SESSION['take_attendance_subject']."',CURDATE())";
 
             $result=mysqli_query($conn,$sql) or die("query failed");
 

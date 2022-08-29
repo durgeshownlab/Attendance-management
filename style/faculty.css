@@ -473,6 +473,7 @@
     background-color: var(--primary-color);
     border-radius: 50%;
     padding: 20px;
+    text-align: center;
 }
 
 /* css for sumit button  */
