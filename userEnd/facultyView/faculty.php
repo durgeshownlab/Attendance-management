@@ -42,6 +42,37 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
 </head>
 <body>
+    <!-- for showing attendance details in floating window -->
+    <div class="attendance-main-container">
+        <div class="attendance-container">
+            <div class="attendance-title-container">
+                <div class="attendance-title">
+                    <p>Attendance Details</p>
+                    <div class="close-container">
+                        close
+                    </div>
+                </div>
+                <div class="date-picker-container">
+                    <label for="from-date">From</label>
+                    <input type="date" name="from-date" id="from-date">
+                    <label for="to-date">To</label>
+                    <input type="date" name="to-date" id="to-date">
+                    <button id="fetch-attendance-details-btn">Go</button>
+                </div>
+                <div class="close-container">
+                    <button onclick="hideAttendanceContainer()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="attendance-details-container">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- for showing faculty information  in floating window-->
     <div class="faculty-info-container">
         <div class="faculty-info-box">
             <div class="info-box-title">
@@ -75,6 +106,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
     </div>
 
 
+    <!-- main container -->
     <div class="main-container">
 
         <!-- nav container -->
@@ -102,6 +134,9 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                                 <div class="profile-option">
                                     <div class="profile-btn">
                                         <button onclick="showProfileInfo()">Profile</button>
+                                    </div>
+                                    <div class="profile-btn">
+                                        <button onclick="showAttendanceContainer()">Attendance Details</button>
                                     </div>
                                     <form method="POST" class="logout">
                                         <button name="logout-btn">Logout</button>
@@ -188,7 +223,11 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
     <script type="text/javascript">
         $(document).ready(function(){
+            // code for attendance details floating window
+            
+            // declare var for nothingToShow
             var showHideNotification="Nothing to show";
+
             //function for notthing to show;
             const nothingToShow = ()=>{
                 if($("#students-details-container-id").children().length==0)
@@ -455,6 +494,21 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             profile.style.display="none";
             close.style.display="flex";
             console.log("profile info Show");
+        }
+
+        //function for hiding the attendance container
+        function hideAttendanceContainer()
+        {
+            let detailsContainer=document.querySelector(".attendance-main-container");
+            detailsContainer.style.display='none';
+        }
+        //function for showing the attendance container
+        function showAttendanceContainer()
+        {
+            let profile=document.querySelector(".profile-option-container");
+            let detailsContainer=document.querySelector(".attendance-main-container");
+            profile.style.display="none";
+            detailsContainer.style.display='flex';
         }
     </script>
 </body>
