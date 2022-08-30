@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "../dbconnect/connect.php";
 
     // for course loading 
@@ -46,7 +47,7 @@
     {
         $sql="select * from section_table where course_name='".$_POST['course']."' and regulation='".$_POST['regulation']."' and branch='".$_POST['branch']."'";
         $results=mysqli_query($conn, $sql) or die("query unsuccessful");
-        $output = "<option value=\"\">--Select Branch--</option>";
+        $output = "<option value=\"\">--Select Section--</option>";
     
         while($row=mysqli_fetch_assoc($results))
         {
@@ -58,7 +59,7 @@
 
     else if($_POST['type']=="subject")
     {
-        $sql="select * from subject_table where course_name='".$_POST['course']."' and regulation='".$_POST['regulation']."' and branch='".$_POST['branch']."'";
+        $sql="select * from subject_table where course_name='".$_POST['course']."' and regulation='".$_POST['regulation']."' and branch='".$_POST['branch']."' and faculty_reg_no='".$_SESSION['reg_no']."'";
         $results=mysqli_query($conn, $sql) or die("query unsuccessful");
         $output = "<option value=\"\">--Select Subject--</option>";
     
