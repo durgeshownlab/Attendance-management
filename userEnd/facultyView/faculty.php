@@ -40,6 +40,9 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
     <!-- font awosome cdn -->
     <script src="https://kit.fontawesome.com/4b1e45d229.js" crossorigin="anonymous"></script>
 
+    <!-- jquery ui css -->
+    <link rel="stylesheet" href="../../style/jquery-ui.min.css">
+
 </head>
 <body>
     <!-- for showing attendance details in floating window -->
@@ -49,15 +52,24 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 <div class="attendance-title">
                     <p>Attendance Details</p>
                     <div class="close-container">
-                        close
+                        <button onclick="hideAttendanceContainer()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="date-picker-container">
-                    <label for="from-date">From</label>
-                    <input type="date" name="from-date" id="from-date">
-                    <label for="to-date">To</label>
-                    <input type="date" name="to-date" id="to-date">
-                    <button id="fetch-attendance-details-btn">Go</button>
+                    <div class="from-date-container">
+                        <label for="from-date">From</label>
+                        <input type="text" name="from-date" id="from-date" autocomplete="off">
+                    </div>
+
+                    <div class="to-date-container">
+                        <label for="to-date">To</label>
+                        <input type="text" name="to-date" id="to-date" autocomplete="off">
+                    </div>
+                    <div class="fetch-attendance-btn-container">
+                        <button id="fetch-attendance-details-btn">Go</button>
+                    </div>
                 </div>
                 <div class="close-container">
                     <button onclick="hideAttendanceContainer()">
@@ -67,7 +79,35 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             </div>
 
             <div class="attendance-details-container">
-
+                <!-- <div class="date-title">
+                    <p>Today's Attendance</p>
+                </div>
+                <div class="attendance-details-card-container"> -->
+                    <!-- card container  -->
+                    <!-- <div class="attendance-card">
+                        <div class="card-item date-container">
+                            <p><span>Date :&nbsp;&nbsp;</span>2000-01-11</p>
+                        </div>
+                        <div class="card-item course-container">
+                            <p><span>Course :&nbsp;&nbsp;</span>B.tech</p>
+                        </div>
+                        <div class="card-item regulation-container">
+                            <p><span>Regulation :&nbsp;&nbsp;</span>R19</p>
+                        </div>
+                        <div class="card-item branch-container">
+                            <p><span>Branch :&nbsp;&nbsp;</span>CSE</p>
+                        </div>
+                        <div class="card-item section-container">
+                            <p><span>Section :&nbsp;&nbsp;</span>C</p>
+                        </div>
+                        <div class="card-item subject-container">
+                            <p><span>Subject :&nbsp;&nbsp;</span>FLAT</p>
+                        </div>
+                        <div class="card-item view-btn-container">
+                            <a href="#">View</a>
+                        </div>
+                    </div> 
+                </div>-->
             </div>
         </div>
     </div>
@@ -220,11 +260,59 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
     <!-- ajax code  -->
     <script src="../../javascript/jquery.js"></script>
+    <!-- jquery ui js -->
+    <script src="../../javascript/jquery-ui.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
             // code for attendance details floating window
             
+            // for from date picker 
+            $("#from-date").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeYear: true,
+                changeMonth: true,
+                yearRange: "2020:2030"
+            });
+
+            //for to date picker
+            $("#to-date").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeYear: true,
+                changeMonth: true,
+                yearRange: "2020:2030"
+            });
+
+            // fetch-attendance-details-btn on click event 
+            function loadAttendanceDetails(fromDate, toDate)
+            {
+                $.ajax({
+                    url: "../../api/getAttendanceDetails.php",
+                    type: "POST",
+                    data: {fromDate: fromDate, toDate: toDate},
+                    success: function(data){
+                        $(".attendance-details-container").html(data);
+                    }
+                });
+            }
+
+            $("#fetch-attendance-details-btn").on("click", ()=>{
+                console.log("From "+$("#from-date").val()+" to "+$("#to-date").val());
+                let fromDate=$("#from-date").val();
+                let toDate=$("#to-date").val();
+                if(fromDate=='' || toDate=='')
+                {
+                    // loadAttendanceDetails();
+                    alert("please select Range");
+                }
+                else
+                {
+                    loadAttendanceDetails(fromDate, toDate);
+                }
+            });
+
+            loadAttendanceDetails();
+
             // declare var for nothingToShow
             var showHideNotification="Nothing to show";
 
