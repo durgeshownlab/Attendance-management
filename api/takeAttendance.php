@@ -18,6 +18,12 @@
 
         }
     }
+
+    $sql="insert into attendance_status_table (faculty_reg_no, course, regulation, branch, section, subject, insert_date) values('".$_SESSION['reg_no']."', '".$_SESSION['take_attendance_course']."', '".$_SESSION['take_attendance_regulation']."','".$_SESSION['take_attendance_branch']."','".$_SESSION['take_attendance_section']."','".$_SESSION['take_attendance_subject']."',CURDATE())";
+
+    $result=mysqli_query($conn, $sql);
+    
+
     $_SESSION['data_inserted']=true;
     mysqli_close($conn);
 
