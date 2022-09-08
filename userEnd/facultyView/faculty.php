@@ -266,7 +266,42 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
     <script type="text/javascript">
         $(document).ready(function(){
             // code for attendance details floating window
+            function loadAttendance(type, course, regulation, branch, section)
+            {
+                $.ajax({
+                    url: "../../api/loadInfo.php",
+                    type: "POST",
+                    data: {type: type, course: course, regulation: regulation, branch: branch, section: section},
+                    success: function(data){
+                        if(type=="regulation")
+                        {
+                            console.log(data);
+                            $("#regulation-1").html(data);
+                        }
+                        else if(type=="branch")
+                        {
+                            console.log(data);
+                            $("#branch-1").html(data);
+                        }
+                        else if(type=="section")
+                        {
+                            console.log(data);
+                            $("#section-1").html(data);
+                        }
+                        else if(type=="subject")
+                        {
+                            console.log(data);
+                            $("#subject-1").html(data);
+                        }
+                        else
+                        {
+                            $("#course-1").append(data);
+                        }
+                    }
+                });
+            }
             
+            // loadAttendance();
             // for from date picker 
             $("#from-date").datepicker({
                 dateFormat: "yy-mm-dd",
@@ -296,7 +331,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 });
             }
 
-            $("#fetch-attendance-details-btn").on("click", ()=>{
+            $("#fetch-attendance-details-btn").on("click", function(){
                 console.log("From "+$("#from-date").val()+" to "+$("#to-date").val());
                 let fromDate=$("#from-date").val();
                 let toDate=$("#to-date").val();
@@ -308,11 +343,188 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 else
                 {
                     loadAttendanceDetails(fromDate, toDate);
+                    loadAttendance("course");
+                    console.log("change");
                 }
             });
 
             loadAttendanceDetails();
 
+            //for attendance course
+            // for course
+            $(document).on("change","#course-1", function(e){
+                // removing existing data from student details container
+                let course=$("#course-1").val();
+                if(course!="")
+                {
+                    if(course=="mca" || course=="mba" || course=="m.tech")
+                    {
+                        $("#branch-1").attr("disabled", "true");
+                        loadAttendance("regulation", course);
+                        $("#regulation-1").html("<option value=\"\">--Select Regulation--</option>");
+                        $("#branch-1").html("<option value=\"\">--Ignore Select Branch--</option>");
+                        $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                    }
+                    else
+                    {
+                        $("#branch-1").removeAttr("disabled");
+                        loadAttendance("regulation", course);
+                        $("#regulation-1").html("<option value=\"\">--Select Regulation--</option>");
+                        $("#branch-1").html("<option value=\"\">--Select Branch--</option>");
+                        $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                    }
+                }
+                else
+                {
+                    $("#regulation-1").html("<option value=\"\">--Select Regulation--</option>");
+                    $("#branch-1").html("<option value=\"\">--Select Branch--</option>");
+                    $("#-1").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                }
+
+            });
+
+            // for regulation
+            $(document).on("change","#regulation-1", function(e){
+                let regulation=$("#regulation-1").val();
+                let course=$("#course-1").val();
+                if(regulation!="")
+                {
+                    if(course=="mca" || course=="mba" || course=="m.tech")
+                    {
+                        loadAttendance("section", course, regulation,"");
+                        $("#branch-1").html("<option value=\"\">--Ignore Select Branch--</option>");
+                        $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                    }
+                    else
+                    {
+                        loadAttendance("branch", course, regulation);
+                        $("#branch-1").html("<option value=\"\">--Select Branch--</option>");
+                        $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                        $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                    }
+                }
+                else
+                {
+                    $("#branch-1").html("<option value=\"\">--Select Branch--</option>");
+                    $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                }
+            });
+
+            //for section 
+
+            $(document).on("change","#branch-1", function(e){
+
+                let regulation=$("#regulation-1").val();
+                let course=$("#course-1").val();
+                let branch=$("#branch-1").val();
+
+                if(branch!="")
+                {
+                    loadAttendance("section", course, regulation, branch);
+                    $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                }
+                else
+                {
+                    $("#section-1").html("<option value=\"\">--Select Section--</option>");
+                    $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                }
+
+            });
+
+            //for subject 
+
+            $(document).on("change","#section-1", function(e){
+
+                let regulation=$("#regulation-1").val();
+                let course=$("#course-1").val();
+                let branch=$("#branch-1").val();
+                let section=$("#section-1").val();
+
+                if(section!="")
+                {
+                    loadAttendance("subject", course, regulation, branch, section);
+                    $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+
+                }
+                else
+                {
+                    $("#subject-1").html("<option value=\"\">--Select Subject--</option>");
+                }
+
+            });
+
+            //for subject change
+            $(document).on("change", "#subject-1", function(e){
+
+            });
+
+            $(document).on("click", "#fetch-btn-1", function(e){
+                let course=$("#course-1").val();
+                let regulation=$("#regulation-1").val();
+                let branch=$("#branch-1").val();
+                let section=$("#section-1").val();
+                let subject=$("#subject-1").val();
+                let fromDate=$("#from-date").val();
+                let toDate=$("#to-date").val();
+                if(course=="")
+                {
+                    alert("Please select Course");
+                }
+                if(course=="mca" || course=="mba" || course=="m.tech")
+                {
+                    if(regulation=="")
+                    {
+                        alert("Please select Regulation");
+                    }
+                    else if(section=="")
+                    {
+                        alert("Please select Section");
+                    }
+                    else if(subject=="")
+                    {
+                        alert("Please select Subject");
+                    }
+                    else
+                    {
+                        console.log(course, regulation, section, subject);
+                        let branch="";
+                        let link='/attendance-management/api/viewAttendanceInRange.php?course='+course+'&regulation='+regulation+'&branch='+branch+'&section='+section+'&subject='+subject+'&fromDate='+fromDate+'&toDate='+toDate;
+                        window.location=link;
+                    }
+                }
+                else
+                {
+                    if(regulation=="")
+                    {
+                        alert("Please select Regulation");
+                    }
+                    else if(subject=="")
+                    {
+                        alert("Please select subject");
+                    }
+                    else if(section=="")
+                    {
+                        alert("Please select Section");
+                    }
+                    else if(subject=="")
+                    {
+                        alert("Please select Subject");
+                    }
+                    else
+                    {
+                        console.log(course, regulation, branch, section, subject);
+                        let link='/attendance-management/api/viewAttendanceInRange.php?course='+course+'&regulation='+regulation+'&branch='+branch+'&section='+section+'&subject='+subject+'&fromDate='+fromDate+'&toDate='+toDate;
+                        window.location=link;
+                    }
+
+                }
+            });
             // declare var for nothingToShow
             var showHideNotification="Nothing to show";
 
@@ -410,15 +622,16 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                             console.log(data);
                             $("#subject").html(data);
                         }
-                        else
+                        else if(type=="course")
                         {
-                            $("#course").append(data);
+                            $("#course").append(data)
+                            ;
                         }
                     }
                 });
             }
             
-            loadData();
+            loadData("course");
             
             // for course
             $("#course").on("change", function(){
