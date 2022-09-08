@@ -154,6 +154,8 @@
     font-size: x-large;
 }
 
+
+
 /* for attendance details container card */
 
 .attendance-details-container
@@ -563,7 +565,7 @@
 
 /* css for fetch details */
 
-.content-container
+.content-container, .attendance-container
 {
     width:100%;
     height: auto;
@@ -571,7 +573,7 @@
     /* background-color: red; */
 }
 
-.fetch-details-container
+.fetch-details-container, .fetch-attendance-container
 {
     width:90%;
     height: auto;

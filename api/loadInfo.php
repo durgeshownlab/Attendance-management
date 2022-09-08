@@ -3,7 +3,7 @@
     include "../dbconnect/connect.php";
 
     // for course loading 
-    if($_POST['type']=="")
+    if($_POST['type']=="course")
     {
         $sql="select * from course_table";
         $results=mysqli_query($conn, $sql) or die("query unsuccessful");

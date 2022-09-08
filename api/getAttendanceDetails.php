@@ -57,7 +57,46 @@
     }
     else
     {
-        
+        $output = "";
+        $output .='<div class="attendance-container">
+        <div class="fetch-attendance-container">
 
+            <div class="input-box course-contanier">
+                <select name="course-1" id="course-1">
+                    <option value="">--Select Course--</option>
+                </select>
+            </div>
+
+            <div class="input-box regulation-contanier">
+                <select name="regulation-1" id="regulation-1">
+                    <!-- <option value="">--select regulation--</option> -->
+                </select>
+            </div>
+
+            <div class="input-box branch-contanier">
+                <select name="branch-1" id="branch-1">
+                    <!-- <option value="">--select branch--</option> -->
+                </select>
+            </div>
+
+            <div class="input-box section-contanier">
+                <select name="section-1" id="section-1">
+                    <!-- <option value="">--select section--</option> -->
+                </select>
+            </div>
+
+            <div class="input-box subject-contanier">
+                <select name="subject-1" id="subject-1">
+                    <!-- <option value="">--select section--</option> -->
+                </select>
+            </div>
+
+            <div class="input-box fetch-btn-contanier">
+                <button id="fetch-btn-1" name="fetch-btn-1">View Attendance</button>
+            </div>
+        </div>
+    </div>';
+
+        echo $output;
     }
 ?>
