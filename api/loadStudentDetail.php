@@ -27,6 +27,7 @@ session_start();
             $_SESSION['take_attendance_regulation']=$_POST['regulation'];
             $_SESSION['take_attendance_section']=$_POST['section'];
             $_SESSION['take_attendance_subject']=$_POST['subject'];
+            $_SESSION['take_attendance_period']=$_POST['period'];
     
     
             $count =1;
