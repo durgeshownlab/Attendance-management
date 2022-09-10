@@ -45,6 +45,13 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
 </head>
 <body>
+    <!-- for college watermark  -->
+    <div class="watermark-container">
+        <div class="watermark">
+            <img src="../../img/logo.png">
+        </div>
+    </div>
+
     <!-- for showing attendance details in floating window -->
     <div class="attendance-main-container">
         <div class="attendance-container">
@@ -152,12 +159,19 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
         <!-- nav container -->
         <div class="nav-container">
             <div class="navbar">
+                <!-- for logo section  -->
                 <div class="logo-container">
                     <div class="logo">
                         <img src="../../img/logo.png">
                     </div>
                 </div>
                 
+                <!-- for college name  -->
+                <div class="college-name-title-container">
+                    <p>Audisankara Institute of Technology</p>
+                </div>
+
+                <!-- for profile container  -->
                 <div class="login-profile-container">
                     <div class="greet-cotainer">
                         <div class="greet">
@@ -176,7 +190,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                                         <button onclick="showProfileInfo()">Profile</button>
                                     </div>
                                     <div class="profile-btn">
-                                        <button onclick="showAttendanceContainer()">Attendance Details</button>
+                                        <button id="show-attendance-btn" onclick="showAttendanceContainer()">Attendance Details</button>
                                     </div>
                                     <form method="POST" class="logout">
                                         <button name="logout-btn">Logout</button>
@@ -219,7 +233,13 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
 
                 <div class="input-box subject-contanier">
                     <select name="subject" id="subject">
-                        <!-- <option value="">--select section--</option> -->
+                        <!-- <option value="">--select subject--</option> -->
+                    </select>
+                </div>
+
+                <div class="input-box period-contanier">
+                    <select name="period" id="period">
+                        <!-- <option value="">--select period--</option> -->
                     </select>
                 </div>
 
@@ -349,6 +369,10 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             });
 
             loadAttendanceDetails();
+            
+            $(document).on("click", "#show-attendance-btn", function(e){
+                loadAttendanceDetails();
+            });
 
             //for attendance course
             // for course
@@ -560,12 +584,12 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
             
 
             //ajax code for load student data 
-            function loadStudentData(course, regulation, branch, section, subject)
+            function loadStudentData(course, regulation, branch, section, subject, period)
             {
                 $.ajax({
                     url: "../../api/loadStudentDetail.php",
                     type: "POST",
-                    data: {course: course, regulation: regulation, branch: branch, section: section, subject: subject},
+                    data: {course: course, regulation: regulation, branch: branch, section: section, subject: subject, period: period},
                     success: function(data){
                         if(data=="already taken")
                         {
@@ -586,9 +610,10 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 let branch=$("#branch").val();
                 let section=$("#section").val();
                 let subject=$("#subject").val();
+                let period=$("#period").val();
                 console.log("clicked");
                 
-                (subject=="")?alert("Please Select Subject"):loadStudentData(course, regulation, branch, section, subject);
+                (subject=="")?alert("Please Select Subject"):loadStudentData(course, regulation, branch, section, subject, period);
 
                 // $("#students-details-container-id").children().length>0?$("#submit-attendance").show():$("#submit-attendance").hide();
 
@@ -630,8 +655,20 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                     }
                 });
             }
-            
             loadData("course");
+
+            //for period loading
+            function loadPeriod(course, regulation, branch, section)
+            {
+                $.ajax({
+                    url: "../../api/periodLoad.php",
+                    type: "POST",
+                    data: {course: course, regulation: regulation, branch: branch, section: section},
+                    success: function(data){
+                        $("#period").html(data);
+                    }
+                });
+            }
             
             // for course
             $("#course").on("change", function(){
@@ -745,6 +782,24 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 else
                 {
                     $("#subject").html("<option value=\"\">--Select Subject--</option>");
+                }
+
+            });
+
+            //for period
+            $("#subject").on("change", function(){
+                $("#students-details-container-id").html(""); // removing existing data from student details container
+                showHideNotification="Nothing to show";
+
+                let regulation=$("#regulation").val();
+                let course=$("#course").val();
+                let branch=$("#branch").val();
+                let section=$("#section").val();
+                let subject=$("#subject").val();
+
+                if(subject!="")
+                {
+                    loadPeriod(course, regulation, branch, section);
                 }
 
             });

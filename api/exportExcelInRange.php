@@ -28,15 +28,14 @@
                 <th>Section</th>
                 <th>Subject</th>
                 <th>Present</th>
-                <th>Absent</th>
                 <th>Total</th>
+                <th>Percentage</th>
             </tr>
             ";
     $i=1;
     $totalStudent=0;
     while($row = mysqli_fetch_assoc($studentDetails))
     {
-        $absent=0;
         $present=0;
         $total=0;
         $sql2="select * from attendance_table where faculty_reg_no='".$_SESSION['reg_no']."' and student_reg_no='".$row['reg_no']."' and course='".$_GET['course']."' and regulation='".$_GET['regulation']."' and branch='".$_GET['branch']."' and section='".$_GET['section']."' and subject='".$_GET['subject']."' and insert_time>='".$_GET['fromDate']."' and insert_time<='".$_GET['toDate']."'";
@@ -48,25 +47,84 @@
             {
                 $present++;
             }
-            else if($col['attendance_status']==0)
-            {
-                $absent++;
-            }
             $total++;
         }
+        $percentage=intval((($present/$total)*100));
         $output .="
-        <tr>
-            <td>".$i."</td>
-            <td>".$row['reg_no']."</td>
-            <td>".$row['name']."</td>
-            <td>".$row['course']."</td>
-            <td>".$row['regulation']."</td>
-            <td>".$row['branch']."</td>
-            <td>".$row['section']."</td>
-            <td>".$_GET['subject']."</td>
-            <td>".$present."</td>
-            <td>".$absent."</td>
-            <td>".$total."</td>
+        <tr";
+        // if($percentage<75)
+        // {
+        //     $output.=" style=\"background-color: red; color: #fff;\"";
+        // }
+        $output.=">
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$i."</td>
+
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$row['reg_no']."</td>
+
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$row['name']."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$row['course']."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$row['regulation']."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$row['branch']."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$row['section']."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$_GET['subject']."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$present."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$total."</td>
+            <td";
+            if($percentage<75)
+            {
+                $output.=" style=\"background-color: red; color: #fff;\"";
+            }
+            $output.=">".$percentage."%</td>
         </tr>
         ";
 

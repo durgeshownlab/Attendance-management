@@ -28,15 +28,14 @@
                 <th>Section</th>
                 <th>Subject</th>
                 <th>Present</th>
-                <th>Absent</th>
                 <th>Total</th>
+                <th>Total Percentage</th>
             </tr>
             ";
     $i=1;
     $totalStudent=0;
     while($row = mysqli_fetch_assoc($studentDetails))
     {
-        $absent=0;
         $present=0;
         $total=0;
         $sql2="select * from attendance_table where faculty_reg_no='".$_SESSION['reg_no']."' and student_reg_no='".$row['reg_no']."' and course='".$_GET['course']."' and regulation='".$_GET['regulation']."' and branch='".$_GET['branch']."' and section='".$_GET['section']."' and subject='".$_GET['subject']."' and insert_time>='".$_GET['fromDate']."' and insert_time<='".$_GET['toDate']."'";
@@ -48,14 +47,16 @@
             {
                 $present++;
             }
-            else if($col['attendance_status']==0)
-            {
-                $absent++;
-            }
             $total++;
         }
+        $percentage=intval((($present/$total)*100));
         $output .="
-        <tr>
+        <tr";
+        if($percentage<75)
+        {
+            $output.=" style=\"background-color: red; color: #fff;\"";
+        }
+        $output.=">
             <td>".$i."</td>
             <td>".$row['reg_no']."</td>
             <td>".$row['name']."</td>
@@ -65,8 +66,8 @@
             <td>".$row['section']."</td>
             <td>".$_GET['subject']."</td>
             <td>".$present."</td>
-            <td>".$absent."</td>
             <td>".$total."</td>
+            <td>".$percentage."%</td>
         </tr>
         ";
 

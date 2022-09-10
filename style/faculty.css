@@ -12,6 +12,37 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+/* css for watermark  */
+.watermark-container
+{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    position: fixed;
+    pointer-events: none;
+}
+
+.watermark
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.watermark img
+{
+    width: 30%;
+    height: auto;
+    background-color: transparent;
+    opacity: .2;
+}
+
 /* css for pop-up window for attendance details */
 
 .attendance-main-container
@@ -423,6 +454,23 @@
     height: 100%;
 }
 
+.college-name-title-container
+{
+    height: 100%;
+    width:auto;
+    display: flex;
+    align-items: center;
+}
+
+.college-name-title-container p
+{
+    font-size: x-large;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: red;
+    text-shadow: 0 0 2px black;
+}
+
 .login-profile-container
 {
     width: auto;
@@ -795,5 +843,18 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+    }
+
+    /* css for college name   */
+    .college-name-title-container
+    {
+        display: none;
+    }
+
+    /* css for watermark  */
+    .watermark img 
+    {
+        width: 80%;
+        opacity: .2;
     }
 }
