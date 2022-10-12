@@ -7,6 +7,7 @@
     // echo $_GET['subject'].'<br/>';
     // echo $_GET['insertDate'].'<br/>';
 
+    session_start();
     include "../dbconnect/connect.php";
 
     $link="exportExcel.php?facultyId=".$_GET['facultyId']."&course=".$_GET['course']."&regulation=".$_GET['regulation']."&branch=".$_GET['branch']."&section=".$_GET['section']."&subject=".$_GET['subject']."&insertDate=".$_GET['insertDate'];
@@ -15,18 +16,38 @@
 
     $result=mysqli_query($conn, $sql);
     $output="";
-    $output .="
+    $output.="
         <table cellpadding=5 border=1 cellspacing=0>
+        <tr>
+            <th>Faculty Id</th>
+            <th>Faculty Name</th>
+            <th>Course</th>
+            <th>Regulation</th>
+            <th>Branch</th>
+            <th>Section</th>
+            <th>Subject</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>".strtoupper($_SESSION['reg_no'])."</td>
+            <td>".strtoupper($_SESSION['name'])."</td>
+            <td>".strtoupper($_GET['course'])."</td>
+            <td>".strtoupper($_GET['regulation'])."</td>
+            <td>".strtoupper($_GET['branch'])."</td>
+            <td>".strtoupper($_GET['section'])."</td>
+            <td>".strtoupper($_GET['subject'])."</td>
+            <td>".strtoupper($_GET['insertDate'])."</td>
+        </tr>
+        <tr>
+        </tr>
+
+    ";
+    $output .="
             <tr>
                 <th>S.no</th>
                 <th>Registration Id</th>
+                <th>Student's Name</th>
                 <th>Attendance Status</th>
-                <th>Course</th>
-                <th>Regulation</th>
-                <th>Branch</th>
-                <th>Section</th>
-                <th>Subject</th>
-                <th>Date</th>
             </tr>
             ";
     $i=1;
@@ -66,13 +87,8 @@
             $output .="A";
         }
             
-        $output .="</td>
-            <td>".$row['course']."</td>
-            <td>".$row['regulation']."</td>
-            <td>".$row['branch']."</td>
-            <td>".$row['section']."</td>
-            <td>".$row['subject']."</td>
-            <td>".$row['insert_time']."</td>
+        $output .="</td>";
+        $output.="<td>".$row[]."</td>
         </tr>
         ";
 

@@ -16,20 +16,37 @@
 
     $studentDetails=mysqli_query($conn, $sql);
     $output="";
-    $output .="
+    $output.="
         <table cellpadding=5 border=1 cellspacing=0>
+        <tr>
+            <th style=\"background-color: #183153; color: #fff;\">Faculty Id</th>
+            <th style=\"background-color: #183153; color: #fff;\">Faculty Name</th>
+            <th style=\"background-color: #183153; color: #fff;\">Course</th>
+            <th style=\"background-color: #183153; color: #fff;\">Regulation</th>
+            <th style=\"background-color: #183153; color: #fff;\">Branch</th>
+            <th style=\"background-color: #183153; color: #fff;\">Section</th>
+            <th style=\"background-color: #183153; color: #fff;\">Subject</th>
+        </tr>
+        <tr>
+            <td>".strtoupper($_SESSION['reg_no'])."</td>
+            <td>".strtoupper($_SESSION['name'])."</td>
+            <td>".strtoupper($_GET['course'])."</td>
+            <td>".strtoupper($_GET['regulation'])."</td>
+            <td>".strtoupper($_GET['branch'])."</td>
+            <td>".strtoupper($_GET['section'])."</td>
+            <td>".strtoupper($_GET['subject'])."</td>
+        </tr>
+        <tr>
+        </tr>
+    ";
+    $output .="
             <tr>
-                <th>S.no</th>
-                <th>Registration Id</th>
-                <th>Student's Name</th>
-                <th>Course</th>
-                <th>Regulation</th>
-                <th>Branch</th>
-                <th>Section</th>
-                <th>Subject</th>
-                <th>Present</th>
-                <th>Total</th>
-                <th>Percentage</th>
+                <th style=\"background-color: #183153; color: #fff;\">S.no</th>
+                <th style=\"background-color: #183153; color: #fff;\">Registration Id</th>
+                <th style=\"background-color: #183153; color: #fff;\">Student's Name</th>
+                <th style=\"background-color: #183153; color: #fff;\">Present</th>
+                <th style=\"background-color: #183153; color: #fff;\">Total</th>
+                <th style=\"background-color: #183153; color: #fff;\">Percentage</th>
             </tr>
             ";
     $i=1;
@@ -69,44 +86,15 @@
             {
                 $output.=" style=\"background-color: red; color: #fff;\"";
             }
-            $output.=">".$row['reg_no']."</td>
+            $output.=">".strtoupper($row['reg_no'])."</td>
 
             <td";
             if($percentage<75)
             {
                 $output.=" style=\"background-color: red; color: #fff;\"";
             }
-            $output.=">".$row['name']."</td>
-            <td";
-            if($percentage<75)
-            {
-                $output.=" style=\"background-color: red; color: #fff;\"";
-            }
-            $output.=">".$row['course']."</td>
-            <td";
-            if($percentage<75)
-            {
-                $output.=" style=\"background-color: red; color: #fff;\"";
-            }
-            $output.=">".$row['regulation']."</td>
-            <td";
-            if($percentage<75)
-            {
-                $output.=" style=\"background-color: red; color: #fff;\"";
-            }
-            $output.=">".$row['branch']."</td>
-            <td";
-            if($percentage<75)
-            {
-                $output.=" style=\"background-color: red; color: #fff;\"";
-            }
-            $output.=">".$row['section']."</td>
-            <td";
-            if($percentage<75)
-            {
-                $output.=" style=\"background-color: red; color: #fff;\"";
-            }
-            $output.=">".$_GET['subject']."</td>
+            $output.=">".ucwords($row['name'])."</td>
+            
             <td";
             if($percentage<75)
             {

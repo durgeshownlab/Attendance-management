@@ -14,19 +14,39 @@
     $sql="select * from students_details_table where course='".$_GET['course']."' and regulation='".$_GET['regulation']."' and branch='".$_GET['branch']."' and section='".$_GET['section']."'";
     // $sql="select * from attendance_table where faculty_reg_no='".$_SESSION['reg_no']."' and course='".$_GET['course']."' and regulation='".$_GET['regulation']."' and branch='".$_GET['branch']."' and section='".$_GET['section']."' and subject='".$_GET['subject']."' and insert_time>='".$_GET['fromDate']."' and insert_time<='".$_GET['toDate']."'";
 
+    
+
     $studentDetails=mysqli_query($conn, $sql);
     $output="";
-    $output .="
+    $output.="
         <table cellpadding=5 border=1 cellspacing=0>
+        <tr>
+            <th>Faculty Id</th>
+            <th>Faculty Name</th>
+            <th>Course</th>
+            <th>Regulation</th>
+            <th>Branch</th>
+            <th>Section</th>
+            <th>Subject</th>
+        </tr>
+        <tr>
+            <td>".strtoupper($_SESSION['reg_no'])."</td>
+            <td>".strtoupper($_SESSION['name'])."</td>
+            <td>".strtoupper($_GET['course'])."</td>
+            <td>".strtoupper($_GET['regulation'])."</td>
+            <td>".strtoupper($_GET['branch'])."</td>
+            <td>".strtoupper($_GET['section'])."</td>
+            <td>".strtoupper($_GET['subject'])."</td>
+        </tr>
+        <tr>
+        </tr>
+
+    ";
+    $output .="
             <tr>
                 <th>S.no</th>
                 <th>Registration Id</th>
                 <th>Student's Name</th>
-                <th>Course</th>
-                <th>Regulation</th>
-                <th>Branch</th>
-                <th>Section</th>
-                <th>Subject</th>
                 <th>Present</th>
                 <th>Total</th>
                 <th>Total Percentage</th>
@@ -58,13 +78,8 @@
         }
         $output.=">
             <td>".$i."</td>
-            <td>".$row['reg_no']."</td>
-            <td>".$row['name']."</td>
-            <td>".$row['course']."</td>
-            <td>".$row['regulation']."</td>
-            <td>".$row['branch']."</td>
-            <td>".$row['section']."</td>
-            <td>".$_GET['subject']."</td>
+            <td>".strtoupper($row['reg_no'])."</td>
+            <td>".ucwords($row['name'])."</td>
             <td>".$present."</td>
             <td>".$total."</td>
             <td>".$percentage."%</td>
@@ -188,14 +203,20 @@
             border: 1px solid var(--primary-color);
         }
 
-        table tr:first-child th
+        table tr th
         {
             border-right: 1px solid #fff;
         }
 
-        table tr:first-child th:last-child
+        table tr th:last-child
         {
             border-right: 1px solid var(--primary-color);
+        }
+
+        table tr th
+        {
+            background-color: var(--primary-color);
+            color: #fff;
         }
 
         .count-container
