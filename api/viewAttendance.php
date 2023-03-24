@@ -75,8 +75,18 @@
         $output .="
         <tr>
             <td>".$i++."</td>
-            <td>".$row['student_reg_no']."</td>
-            <td>";
+            <td>".$row['student_reg_no']."</td>";
+
+        $sql1="select name from students_details_table where reg_no='".$row['student_reg_no']."'";
+        $result1=mysqli_query($conn, $sql1);
+        if(mysqli_num_rows($result1)==1)
+        {
+            $row1=mysqli_fetch_assoc($result1);
+    
+            $output.="<td>".$row1["name"]."</td>";
+        }
+
+        $output .="<td>";
         
         if($row['attendance_status']==1)
         {
@@ -87,8 +97,7 @@
             $output .="A";
         }
             
-        $output .="</td>";
-        $output.="<td>".$row[]."</td>
+        $output .="</td>
         </tr>
         ";
 

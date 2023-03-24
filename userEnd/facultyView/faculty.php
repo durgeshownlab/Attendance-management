@@ -148,6 +148,9 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 <div class="info">
                     <p> <span>Branch : </span> <?php echo $_SESSION["branch"]?></p>
                 </div>
+                <div class="info">
+                    <p> <span>User Type : </span> <?php echo $_SESSION["user_type"]?></p>
+                </div>
             </div>
         </div>
     </div>
@@ -327,7 +330,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 dateFormat: "yy-mm-dd",
                 changeYear: true,
                 changeMonth: true,
-                yearRange: "2020:2030"
+                yearRange: "2020:2050"
             });
 
             //for to date picker
@@ -335,7 +338,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 dateFormat: "yy-mm-dd",
                 changeYear: true,
                 changeMonth: true,
-                yearRange: "2020:2030"
+                yearRange: "2020:2050"
             });
 
             // fetch-attendance-details-btn on click event 
@@ -355,6 +358,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 console.log("From "+$("#from-date").val()+" to "+$("#to-date").val());
                 let fromDate=$("#from-date").val();
                 let toDate=$("#to-date").val();
+
                 if(fromDate=='' || toDate=='')
                 {
                     // loadAttendanceDetails();
@@ -362,6 +366,8 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
                 }
                 else
                 {
+
+                    console.log(fromDate, toDate);
                     loadAttendanceDetails(fromDate, toDate);
                     loadAttendance("course");
                     console.log("change");
