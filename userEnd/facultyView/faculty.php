@@ -823,6 +823,7 @@ if(isset($_SESSION['data_inserted']) && $_SESSION['data_inserted'])
     <script>
 
         // function for toggling the profile dropdown
+
         function profileToggle()
         {
             let profile=document.querySelector(".profile-option-container");

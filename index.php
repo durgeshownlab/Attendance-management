@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(isset($_SESSION['reg_no']))
+if(isset($_SESSION['reg_no']) && isset($_SESSION['user_type']))
 {
     if($_SESSION['user_type']=='faculty')
     {
