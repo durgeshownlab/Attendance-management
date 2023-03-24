@@ -9,7 +9,7 @@ if(isset($_SESSION['reg_no']))
     }
 }
 
-if(isset($_POST["faculty-login"]))
+if(isset($_POST["login"]))
     {
         $username=$_POST["username"];
         $password=$_POST["password"];
@@ -43,9 +43,12 @@ if(isset($_POST["faculty-login"]))
                 $_SESSION['mobile_no']=$row["mobile_no"];
                 $_SESSION['email']=$row["email"];
                 $_SESSION['branch']=$row["branch"];
-                $_SESSION['user_type']='faculty';
+                $_SESSION['user_type']=$row["user_type"];
 
-                header('Location: userEnd/facultyView/faculty.php');
+                if($_SESSION['user_type']=="faculty")
+                {
+                    header('Location: userEnd/facultyView/faculty.php');
+                }
             }
             else
             {
@@ -84,20 +87,20 @@ if(isset($_POST["faculty-login"]))
                     <?php if(isset($error) && $error){echo '<p style="color: red;">Invalid username or password</p>';}?>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" id="username" name="username">
+                    <input type="text" placeholder="Username" id="username" name="username" autocomplete="off" autofocus>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" minlength="8" maxlength="20" id="password" name="password">
+                    <input type="password" placeholder="Password" minlength="8" maxlength="20" id="password" name="password" autocomplete="off">
                 </div>
 
                 <div class="login-btn-contanier">
                     <div class="login-as">
-                        <p>Login as</p>
+                        <p></p>
                     </div>
                     <div class="login-btn">
-                        <button id="faculty-login" class="btn" name="faculty-login">Faculity</button>
+                        <button id="faculty-login" class="btn" name="login">Log in</button>
                     </div>
-                    <div class="login-btn">
+                    <!-- <div class="login-btn">
                         <button id="Hod-login" class="btn" name="hod-login">HOD</button>
                     </div>
                     <div class="login-btn">
@@ -105,7 +108,7 @@ if(isset($_POST["faculty-login"]))
                     </div>
                     <div class="login-btn">
                         <button id="student-login" class="btn" name="student-login"> Student</button>
-                    </div>
+                    </div> -->
                 </div>
             </form>
         </div>
