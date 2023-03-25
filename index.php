@@ -7,6 +7,10 @@ if(isset($_SESSION['reg_no']) && isset($_SESSION['user_type']))
     {
         header('Location: userEnd/facultyView/faculty.php');
     }
+    else if($_SESSION['user_type']=='hod')
+    {
+        header('Location: userEnd/hodView/hod.php');
+    }
 }
 
 if(isset($_POST["login"]))
@@ -48,6 +52,10 @@ if(isset($_POST["login"]))
                 if($_SESSION['user_type']=="faculty")
                 {
                     header('Location: userEnd/facultyView/faculty.php');
+                }
+                else if($_SESSION['user_type']=='hod')
+                {
+                    header('Location: userEnd/hodView/hod.php');
                 }
             }
             else
@@ -100,15 +108,7 @@ if(isset($_POST["login"]))
                     <div class="login-btn">
                         <button id="faculty-login" class="btn" name="login">Log in</button>
                     </div>
-                    <!-- <div class="login-btn">
-                        <button id="Hod-login" class="btn" name="hod-login">HOD</button>
-                    </div>
-                    <div class="login-btn">
-                        <button id="Departement-login" class="btn" name="Department-login">Department</button>
-                    </div>
-                    <div class="login-btn">
-                        <button id="student-login" class="btn" name="student-login"> Student</button>
-                    </div> -->
+            
                 </div>
             </form>
         </div>
