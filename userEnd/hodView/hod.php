@@ -63,7 +63,20 @@
                     </form>
                 </div>
                 <div class="right-header">
-                    CSE department
+                    <div class="notification-container">
+                        <div class="notification">
+                            <span></span>
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="department-name">
+                        <span>CSE</span>
+                    </div>
+                    <div class="profile-container">
+                        <div class="profile">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
