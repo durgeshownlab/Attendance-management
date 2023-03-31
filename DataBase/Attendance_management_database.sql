@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2022 at 04:04 PM
+-- Generation Time: Mar 31, 2023 at 11:42 AM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- PHP Version: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `attendance_management`
 --
-CREATE DATABASE IF NOT EXISTS `attendance_management` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `attendance_management`;
 
 -- --------------------------------------------------------
 
@@ -67,7 +65,12 @@ INSERT INTO `attendance_status_table` (`s_no`, `faculty_reg_no`, `course`, `regu
 (24, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'ds', 1, '2022-09-10', '2022-09-10 12:26:40'),
 (25, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'bda', 2, '2022-09-10', '2022-09-10 12:29:46'),
 (26, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'psp', 3, '2022-09-10', '2022-09-10 12:30:35'),
-(27, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 4, '2022-09-10', '2022-09-10 13:47:30');
+(27, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 4, '2022-09-10', '2022-09-10 13:47:30'),
+(28, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 1, '2023-03-24', '2023-03-24 07:03:22'),
+(29, '192h1a05f7', 'mba', 'r20', '', 'a', 'test_mba', 1, '2023-03-24', '2023-03-24 09:15:59'),
+(30, '192h1a05f7', 'mca', 'r20', '', 'a', 'test_mca', 1, '2023-03-24', '2023-03-24 09:17:08'),
+(31, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'bda', 2, '2023-03-24', '2023-03-24 09:17:48'),
+(32, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'psp', 3, '2023-03-24', '2023-03-24 09:19:03');
 
 -- --------------------------------------------------------
 
@@ -241,7 +244,36 @@ INSERT INTO `attendance_table` (`s_no`, `student_reg_no`, `faculty_reg_no`, `att
 (193, '192h1a05d4', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2022-09-10'),
 (194, '192h1a05d5', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2022-09-10'),
 (195, '192h1a05d6', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2022-09-10'),
-(196, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2022-09-10');
+(196, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2022-09-10'),
+(197, '192h1a05a1', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(198, '192h1a05a2', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(199, '192h1a05d1', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(200, '192h1a05d2', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(201, '192h1a05d3', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(202, '192h1a05d4', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(203, '192h1a05d5', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(204, '192h1a05d6', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(205, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-03-24'),
+(206, '192h1a05a3', '192h1a05f7', 1, 'mba', 'r20', '', 'a', 'test_mba', '2023-03-24'),
+(207, '202h1a05a1', '192h1a05f7', 1, 'mca', 'r20', '', 'a', 'test_mca', '2023-03-24'),
+(208, '192h1a05a1', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(209, '192h1a05a2', '192h1a05f7', 1, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(210, '192h1a05d1', '192h1a05f7', 1, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(211, '192h1a05d2', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(212, '192h1a05d3', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(213, '192h1a05d4', '192h1a05f7', 1, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(214, '192h1a05d5', '192h1a05f7', 1, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(215, '192h1a05d6', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(216, '192h1a05d7', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'bda', '2023-03-24'),
+(217, '192h1a05a1', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(218, '192h1a05a2', '192h1a05f7', 1, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(219, '192h1a05d1', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(220, '192h1a05d2', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(221, '192h1a05d3', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(222, '192h1a05d4', '192h1a05f7', 1, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(223, '192h1a05d5', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(224, '192h1a05d6', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24'),
+(225, '192h1a05d7', '192h1a05f7', 0, 'b.tech', 'r19', 'cse', 'c', 'psp', '2023-03-24');
 
 -- --------------------------------------------------------
 
@@ -305,16 +337,23 @@ CREATE TABLE `faculty_table` (
   `mobile_no` varchar(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `branch` varchar(20) NOT NULL
+  `branch` varchar(20) NOT NULL,
+  `user_type` varchar(20) NOT NULL,
+  `profile_img` varchar(255) NOT NULL DEFAULT '../../img/facultyImage/faculty1.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `faculty_table`
 --
 
-INSERT INTO `faculty_table` (`sno`, `reg_no`, `name`, `mobile_no`, `email`, `password`, `branch`) VALUES
-(1, '192h1a05f7', 'test faculity', '1234567890', 'email@gmail.com', '12345678', 'cse'),
-(2, '192h1a05g3', 'test 2', '7667107173', 'email2@gmail.com', '12345678', 'cse');
+INSERT INTO `faculty_table` (`sno`, `reg_no`, `name`, `mobile_no`, `email`, `password`, `branch`, `user_type`, `profile_img`) VALUES
+(1, '192h1a05f7', 'test faculity', '1234567890', 'email@gmail.com', '12345678', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
+(2, '192h1a05g3', 'test 2', '7667107173', 'email2@gmail.com', '12345678', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
+(3, '192h1a05g2', 'Naveen kumar', '6205925686', 'naveen@gamil.com', '12345678', 'cse', 'hod', '../../img/facultyImage/faculty1.png'),
+(4, '192h1a05g1', 'khushvant kumar', '9507163552', 'khushvant@gmail.com', 'Khushvant', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
+(37, '192h1a05g7', 'fdgds', '8877667715', 'musalmarnw@gamil.com', '12345678', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
+(38, '192h1a05g6', 'dfgdg', '8877667719', 'musaldfmanfgw@gamil.com', '12345678', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
+(39, '192h1a05f8', 'dfgdg', '8877667756', 'mudalma@gamil.com', '12345678', 'cse', 'faculty', '../../img/facultyImage/faculty1.png');
 
 -- --------------------------------------------------------
 
@@ -475,7 +514,10 @@ ALTER TABLE `course_table`
 -- Indexes for table `faculty_table`
 --
 ALTER TABLE `faculty_table`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`sno`) USING BTREE,
+  ADD UNIQUE KEY `reg_no` (`reg_no`),
+  ADD UNIQUE KEY `mobile_no` (`mobile_no`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `regulation_table`
@@ -510,13 +552,13 @@ ALTER TABLE `subject_table`
 -- AUTO_INCREMENT for table `attendance_status_table`
 --
 ALTER TABLE `attendance_status_table`
-  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `attendance_table`
 --
 ALTER TABLE `attendance_table`
-  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT for table `branch_table`
@@ -534,7 +576,7 @@ ALTER TABLE `course_table`
 -- AUTO_INCREMENT for table `faculty_table`
 --
 ALTER TABLE `faculty_table`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `regulation_table`
