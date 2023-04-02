@@ -4,6 +4,8 @@
     --primary-color: #183153;
     --grey-color: #e8e8e8fc;
     --primary-color-30: #18315359;
+    --green-color: green;
+    --red-color: rgb(255, 37, 37);
 }
 
 *
@@ -545,23 +547,6 @@
     border-radius: 10px;
 }
 
-.modal-box-close
-{
-    width: 50px;
-    height: 50px;
-    background-color: rgb(225, 37, 37);
-    color: #fff;
-    font-size: 25px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: -20px;
-    top: -20px;
-    cursor: pointer;
-}
-
 .modal-box-content
 {
     width: 100%;
@@ -572,6 +557,11 @@
 }
 
 /* css for add faculty model form */
+.modal-box-content form
+{
+    position: relative;
+}
+
 .form-title
 {
     width:100%;
@@ -585,6 +575,20 @@
     height: 100%;
     padding: 20px 10px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.form-part-up
+{
+    width:100%;
+    height: auto;
+}
+
+.form-part-down
+{
+    width:100%;
+    height: auto;
 }
 .input-field-container
 {
@@ -594,6 +598,16 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.form-part-down .input-field-container
+{
+    width:100%;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    padding-right: 20px;
+    margin-top: 20px;
 }
 .input-field-container input 
 {
@@ -607,27 +621,84 @@
     border-radius: 5px;
     /* background-color: #d1d1d1; */
 }
-.input-field-container:last-child
+
+/* .input-field-container:last-child
 {
-    justify-content: center;
-}
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+} */
+
+/* .input-field-container
+{
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+} */
 .input-field-container button 
 {
-    width:45%;
+    width: auto;
     height: 80%;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 16px;
-    background-color: var(--primary-color);
+    background-color: var(--green-color);
     color: #fff;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--green-color);
     border-radius: 5px;
     cursor: pointer;
 }
 .input-field-container button:hover
 {
     background-color: #fff;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: var(--green-color);
+    border: 2px solid var(--green-color);
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-box-close
+{
+    height: 80%;
+    width: auto;
+    padding: 10px 20px ;
+    margin-left: 10px;
+    background-color: #fff;
+    border: 2px solid rgb(225, 37, 37);
+    color: rgb(225, 37, 37);
+    font-size: 16px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: absolute; */
+    /* right: -20px;
+    top: -20px; */
+    cursor: pointer;
+}
+.modal-box-close:hover
+{
+    height: 80%;
+    width: auto;
+    padding: 10px 20px ;
+    margin-left: 10px;
+    background-color: var(--red-color);
+    border: 2px solid var(--red-color);
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: absolute; */
+    /* right: -20px;
+    top: -20px; */
     cursor: pointer;
 }

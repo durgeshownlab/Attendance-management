@@ -101,9 +101,6 @@
         <div class="modal-box-container">
             
             <div class="modal-box">
-                <div class="modal-box-close">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
                 <div class="modal-box-content">
 
                 </div>
@@ -307,6 +304,89 @@
                             url: "../../api/hodApi/insertFacultyApi.php",
                             type: "POST",
                             data: {fname: name, femail: email, freg_no: reg_no, fnumber: number, fpassword: password, fconfirm_password: confirm_password},
+                            success: function(data)
+                            {
+                                if(data==1)
+                                {
+                                    $(".modal-box-container").hide();
+                                    setTimeout(function() {
+                                        loadFaculty();
+                                    }, 500);
+
+                                    // alert("successfully inserted");
+
+                                }
+                                else if(data==0){
+                                    alert("Sorry, can't Add this faculty");
+                                }
+                                else if(data==2)
+                                {
+                                    alert("Something went wrong , please try again");
+                                }
+                                else
+                                {
+                                    alert(data);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+            // for updating allready existing = faculty in your database
+            $(document).on("click", "#update-faculty-submit-btn", function(e){
+                e.preventDefault();
+                console.log("update clicked");
+                var name=$("#faculty-name").val();
+                var email=$("#faculty-email").val();
+                var reg_no=$("#faculty-reg-no").val();
+                var number=$("#faculty-number").val();
+                var password=$("#faculty-password").val();
+                var confirm_password=$("#faculty-confirm-password").val();
+                var id=$(this).data("id");
+                // var profile_pic=$("#faculty-profile-picture").val();
+
+                console.log(name, email, reg_no, number, password);
+                if(name==''){
+                    alert("please enter the name");
+                }
+                else if(email=='' || !validateEmail(email)){
+                    alert("please enter the email");
+                }
+                else if(reg_no==''){
+                    alert("please enter the registration number");
+                }
+                else if(reg_no.length!=10){
+                    alert("please enter valid registration number");
+                }
+                else if(number==''){
+                    alert("please enter the phone number");
+                }
+                else if(number.length!=10){
+                    alert("please enter valid phone number");
+                }
+                else if(password==''){
+                    
+                    alert("please enter the password");
+                }
+                else if(password.length<8){
+                    
+                    alert("password length should be greater than 8 character");
+                }
+                else if(confirm_password==''){
+
+                    alert("please confirm the password");
+                }
+                else if(password!=confirm_password){
+                    alert("password doesn't match");
+                }
+                else{
+                    if(confirm("Do you realy want add"))
+                    {
+                        $.ajax({
+                            url: "../../api/hodApi/updateFacultyApi.php",
+                            type: "POST",
+                            data: {fname: name, femail: email, freg_no: reg_no, fnumber: number, fpassword: password, fconfirm_password: confirm_password, fid: id},
                             success: function(data)
                             {
                                 if(data==1)
