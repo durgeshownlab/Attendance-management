@@ -1,5 +1,15 @@
 <?php
     session_start();
+
+    if(!isset($_SESSION['mobile_no']))
+    {
+        header('Location: ../../index.php');
+    }
+
+    if(isset($_POST["logout-btn"]))
+    {
+        header('Location: ../../api/logout.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -86,6 +96,14 @@
                     <div class="profile-container">
                         <div class="profile">
                             <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="profile-dropdown-container">
+                            <div class="dropdown">
+                                <button>Menu</button>
+                            </div>
+                            <form method="POST" class="dropdown logout">
+                                <button name="logout-btn">Logout</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -186,6 +204,13 @@
                 $('#search-bar').attr('data-tab', 'analytics');
                 $(".right-container-content").html("analytics");
             });
+
+            //profile option show hide
+            $(document).on("click", ".profile-container", function(){
+                $(".profile-dropdown-container").toggle();
+            });
+
+
 
             //on click listener on delete button on faculty details card
             $(document).on("click", ".delete-btn", function(){

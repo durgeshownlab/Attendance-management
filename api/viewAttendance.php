@@ -56,13 +56,6 @@
     $total=0;
     while($row = mysqli_fetch_assoc($result))
     {
-        // echo $row['student_reg_no'];
-        // echo $row['attendance_status'];
-        // echo $row['subject'];
-        // echo $row['branch'];
-        // echo $row['section'];
-        // echo $row['insert_time']."<br/>";
-
         if($row['attendance_status']==1)
         {
             $present++;
