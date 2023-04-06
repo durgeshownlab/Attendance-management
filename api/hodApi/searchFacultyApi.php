@@ -2,9 +2,11 @@
     session_start();
     include "../../dbconnect/connect.php";
 
-    $output ='';
+    $search=$_POST['search_data'];
+    $output='';
 
-    $sql="select sno, reg_no, name, mobile_no, email, branch, profile_img from faculty_table where branch ='".$_SESSION['branch']."' and user_type='faculty'";
+    $sql="select sno, reg_no, name, mobile_no, email, branch, profile_img from faculty_table where (branch ='".$_SESSION['branch']."' and user_type='faculty') and (reg_no like '%{$search}%' or name like '%{$search}%' or mobile_no like '%{$search}%' or email like '%{$search}%')";
+
     $result=mysqli_query($conn, $sql);
 
     if(mysqli_num_rows($result)==0)
@@ -19,7 +21,7 @@
     }
     else
     {
-        $output .='<div class="card-container">';
+        $output='<div class="card-container">';
     
         while($row=mysqli_fetch_assoc($result))
         {
@@ -67,7 +69,9 @@
     
         $output .='
         <div class="add-faculty-btn-container"><div class="add-faculty-btn"><i class="fa-solid fa-user-plus"></i></div></div>';
+
     }
+
 
     echo $output;
 

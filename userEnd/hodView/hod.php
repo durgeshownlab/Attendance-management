@@ -66,7 +66,7 @@
                 <!-- left header code  -->
                 <div class="left-header">
                     <form class="search">
-                        <input type="search" placeholder="search">
+                        <input type="search" placeholder="search" name="search-bar" id="search-bar">
                         <button type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -138,6 +138,7 @@
                 console.log("faculty clicked");
                 $(".menu").removeClass("active");
                 $("#home").addClass("active");
+                $('#search-bar').attr('data-tab', 'home');
                 $(".right-container-content").html("home");
             });
 
@@ -146,6 +147,7 @@
                 console.log("faculty clicked");
                 $(".menu").removeClass("active");
                 $("#faculty").addClass("active");
+                $('#search-bar').attr('data-tab', 'faculty');
                 loadFaculty();
             });
 
@@ -154,6 +156,7 @@
                 console.log("profile clicked");
                 $(".menu").removeClass("active");
                 $("#profile").addClass("active");
+                $('#search-bar').attr('data-tab', 'profile');
                 $(".right-container-content").html("profile");
             });
 
@@ -162,6 +165,7 @@
                 console.log("attendance clicked");
                 $(".menu").removeClass("active");
                 $("#attendance").addClass("active");
+                $('#search-bar').attr('data-tab', 'attendance');
                 $(".right-container-content").html("attendance");
             });
 
@@ -170,6 +174,7 @@
                 console.log("auth clicked");
                 $(".menu").removeClass("active");
                 $("#auth").addClass("active");
+                $('#search-bar').attr('data-tab', 'auth');
                 $(".right-container-content").html("auth");
             });
 
@@ -178,6 +183,7 @@
                 console.log("auth clicked");
                 $(".menu").removeClass("active");
                 $("#analytics").addClass("active");
+                $('#search-bar').attr('data-tab', 'analytics');
                 $(".right-container-content").html("analytics");
             });
 
@@ -414,6 +420,31 @@
                         });
                     }
                 }
+            });
+
+            // code for search bar
+            $(document).on("keyup", "#search-bar", function(e){
+                var search_tab = $("#search-bar").attr("data-tab");
+                if(search_tab == "home")
+                {
+                    var search_data = $("#search-bar").val();
+                    console.log(search_data, "home tab");
+                }
+                else if(search_tab == "faculty")
+                {
+                    var search_data = $("#search-bar").val();
+                    console.log(search_data, "faculty tab");
+                    $.ajax({
+                        url: "../../api/hodApi/searchFacultyApi.php",
+                        type: "POST",
+                        data: {search_data: search_data},
+                        success: function(data)
+                        {
+                            $(".right-container-content").html(data);
+                        }
+                    });
+                }
+                
             });
 
 
