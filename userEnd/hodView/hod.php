@@ -111,7 +111,7 @@
 
             <!-- code for right ccontainer content in which ajax call will be done  -->
             <div class="right-container-content">
-
+                
             </div>
         </div>
 
@@ -175,7 +175,14 @@
                 $(".menu").removeClass("active");
                 $("#profile").addClass("active");
                 $('#search-bar').attr('data-tab', 'profile');
-                $(".right-container-content").html("profile");
+                $.ajax({
+                    url: "../../api/hodApi/profileApi.php",
+                    type: "POST",
+                    data: {},
+                    success: function(data){
+                        $(".right-container-content").html(data);
+                    }
+                })
             });
 
             // on click listener on attendance tab
