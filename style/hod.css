@@ -719,3 +719,26 @@
     top: -20px; */
     cursor: pointer;
 }
+
+
+/* code for profile tab  */
+
+.profile-tab-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.profile-tab-container .profile-data {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 5px 0px;
+}
+
+.profile-data span {
+    font-weight: 800;
+}
