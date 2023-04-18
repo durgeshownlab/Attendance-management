@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2023 at 01:03 PM
+-- Generation Time: Apr 17, 2023 at 12:15 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -79,7 +79,9 @@ INSERT INTO `attendance_status_table` (`s_no`, `faculty_reg_no`, `course`, `regu
 (38, '192h1a05f7', 'mca', 'r20', '', 'a', 'test_mca', 1, '2023-04-11', '2023-04-11 11:34:40'),
 (39, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'ds', 1, '2023-04-14', '2023-04-14 09:45:16'),
 (40, '192h1a05f7', 'b.tech', 'r19', 'cse', 'c', 'bda', 2, '2023-04-14', '2023-04-14 09:46:03'),
-(41, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 3, '2023-04-14', '2023-04-14 09:46:59');
+(41, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 3, '2023-04-14', '2023-04-14 09:46:59'),
+(42, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 1, '2023-04-16', '2023-04-16 16:54:41'),
+(43, '192h1a05g3', 'b.tech', 'r19', 'cse', 'c', 'flat', 1, '2023-04-17', '2023-04-17 06:44:29');
 
 -- --------------------------------------------------------
 
@@ -347,7 +349,25 @@ INSERT INTO `attendance_table` (`s_no`, `student_reg_no`, `faculty_reg_no`, `att
 (287, '192h1a05d4', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-14'),
 (288, '192h1a05d5', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-14'),
 (289, '192h1a05d6', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-14'),
-(290, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-14');
+(290, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-14'),
+(291, '192h1a05a1', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(292, '192h1a05a2', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(293, '192h1a05d1', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(294, '192h1a05d2', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(295, '192h1a05d3', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(296, '192h1a05d4', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(297, '192h1a05d5', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(298, '192h1a05d6', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(299, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-16'),
+(300, '192h1a05a1', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(301, '192h1a05a2', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(302, '192h1a05d1', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(303, '192h1a05d2', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(304, '192h1a05d3', '192h1a05g3', 1, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(305, '192h1a05d4', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(306, '192h1a05d5', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(307, '192h1a05d6', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17'),
+(308, '192h1a05d7', '192h1a05g3', 0, 'b.tech', 'r19', 'cse', 'c', 'flat', '2023-04-17');
 
 -- --------------------------------------------------------
 
@@ -422,11 +442,10 @@ CREATE TABLE `faculty_table` (
 --
 
 INSERT INTO `faculty_table` (`sno`, `reg_no`, `name`, `mobile_no`, `email`, `password`, `course`, `branch`, `user_type`, `profile_img`) VALUES
-(1, '192h1a05f7', 'test faculity', '1234567890', 'email@gmail.com', '12345678', 'b.tech', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
+(1, '192h1a05f7', 'durgesh', '1234567890', 'email@gmail.com', '12345678', 'b.tech', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
 (2, '192h1a05g3', 'test 2', '7667107173', 'email2@gmail.com', '12345678', 'b.tech', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
 (3, '192h1a05g2', 'Naveen kumar', '6205925686', 'naveen@gamil.com', '12345678', 'b.tech', 'cse', 'hod', '../../img/facultyImage/faculty1.png'),
 (4, '192h1a05g1', 'khushvant kumar', '9507163552', 'khushvant@gmail.com', 'Khushvant', 'b.tech', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
-(39, '192h1a05f8', 'dfgdg', '8877667756', 'mudalma@gamil.com', '12345678', 'b.tech', 'cse', 'faculty', '../../img/facultyImage/faculty1.png'),
 (40, '192h1a05g4', 'ravi shankar sharma', '9508727678', 'ravi@gmail.com', '12345678', 'mba', '', 'hod', '../../img/facultyImage/faculty1.png');
 
 -- --------------------------------------------------------
@@ -626,13 +645,13 @@ ALTER TABLE `subject_table`
 -- AUTO_INCREMENT for table `attendance_status_table`
 --
 ALTER TABLE `attendance_status_table`
-  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `attendance_table`
 --
 ALTER TABLE `attendance_table`
-  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=291;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
 
 --
 -- AUTO_INCREMENT for table `branch_table`

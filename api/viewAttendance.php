@@ -15,6 +15,11 @@
     $sql="select * from attendance_table where faculty_reg_no='".$_GET['facultyId']."' and course='".$_GET['course']."' and regulation='".$_GET['regulation']."' and branch='".$_GET['branch']."' and section='".$_GET['section']."' and subject='".$_GET['subject']."' and insert_time='".$_GET['insertDate']."'";
 
     $result=mysqli_query($conn, $sql);
+
+    $sql2="select reg_no, name from faculty_table where reg_no='".$_GET['facultyId']."'";
+    $result2=mysqli_query($conn, $sql2);
+    $row1=mysqli_fetch_assoc($result2);
+
     $output="";
     $output.="
         <table cellpadding=5 border=1 cellspacing=0>
@@ -29,8 +34,8 @@
             <th>Date</th>
         </tr>
         <tr>
-            <td>".strtoupper($_SESSION['reg_no'])."</td>
-            <td>".strtoupper($_SESSION['name'])."</td>
+            <td>".strtoupper($row1['reg_no'])."</td>
+            <td>".strtoupper($row1['name'])."</td>
             <td>".strtoupper($_GET['course'])."</td>
             <td>".strtoupper($_GET['regulation'])."</td>
             <td>".strtoupper($_GET['branch'])."</td>
