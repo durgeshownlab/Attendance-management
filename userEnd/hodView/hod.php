@@ -77,7 +77,7 @@
                 <div class="left-header">
                     <form class="search">
                         <input type="search" placeholder="search" name="search-bar" id="search-bar">
-                        <button type="submit">
+                        <button type="submit" class="search-btn">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
@@ -111,7 +111,7 @@
 
             <!-- code for right ccontainer content in which ajax call will be done  -->
             <div class="right-container-content">
-                
+
             </div>
         </div>
 
@@ -182,7 +182,7 @@
                     success: function(data){
                         $(".right-container-content").html(data);
                     }
-                })
+                });
             });
 
             // on click listener on attendance tab
@@ -191,7 +191,14 @@
                 $(".menu").removeClass("active");
                 $("#attendance").addClass("active");
                 $('#search-bar').attr('data-tab', 'attendance');
-                $(".right-container-content").html("attendance");
+                $.ajax({
+                    url: "../../api/hodApi/getAttendanceHodApi.php",
+                    type: "POST",
+                    data: {},
+                    success: function(data){
+                        $(".right-container-content").html(data);
+                    }
+                });
             });
 
             // on click listener on auth tab
@@ -457,11 +464,15 @@
             // code for search bar
             $(document).on("keyup", "#search-bar", function(e){
                 var search_tab = $("#search-bar").attr("data-tab");
+
+                //for home tab
                 if(search_tab == "home")
                 {
                     var search_data = $("#search-bar").val();
                     console.log(search_data, "home tab");
                 }
+
+                //for faculty tab
                 else if(search_tab == "faculty")
                 {
                     var search_data = $("#search-bar").val();
@@ -476,7 +487,46 @@
                         }
                     });
                 }
+                //for attendance tab
+                else if(search_tab == "attendance")
+                {
+                    var search_data = $("#search-bar").val();
+                    console.log(search_data, "attendance tab");
+
+
+                    if(search_data=='')
+                    {
+                        $.ajax({
+                            url: "../../api/hodApi/getAttendanceHodApi.php",
+                            type: "POST",
+                            data: {},
+                            success: function(data){
+                                $(".right-container-content").html(data);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $.ajax({
+                            url: "../../api/hodApi/searchAttendanceHodApi.php",
+                            type: "POST",
+                            data: {search_data: search_data},
+                            success: function(data)
+                            {
+                                $(".right-container-content").html(data);
+                            }
+                        });
+
+                    }
+
+                }
                 
+            });
+
+            //preventing search button
+
+            $(document).on("click", ".search-btn", function(e){
+                e.preventDefault();
             });
 
 

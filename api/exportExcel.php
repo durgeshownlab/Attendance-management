@@ -5,76 +5,10 @@
     $sql="select * from attendance_table where faculty_reg_no='".$_GET['facultyId']."' and course='".$_GET['course']."' and regulation='".$_GET['regulation']."' and branch='".$_GET['branch']."' and section='".$_GET['section']."' and subject='".$_GET['subject']."' and insert_time='".$_GET['insertDate']."'";
 
     $result=mysqli_query($conn, $sql);
-    
-    // $output="
-    //     <table border=1>
-    //         <tr>
-    //             <th>S.no</th>
-    //             <th>Registration Id</th>
-    //             <th>Attendance Status</th>
-    //             <th>Course</th>
-    //             <th>Regulation</th>
-    //             <th>Branch</th>
-    //             <th>Section</th>
-    //             <th>Subject</th>
-    //             <th>Date</th>
-    //         </tr>";
-    // $i=1;
-    // $absent=0;
-    // $present=0;
-    // $total=0;
-    // while($row = mysqli_fetch_assoc($result))
-    // {
-    //     if($row['attendance_status']==1)
-    //     {
-    //         $present++;
-    //     }
-    //     else
-    //     {
-    //         $absent++;
-    //     }
-    //     $output .="
-    //     <tr>
-    //         <td>".$i++."</td>
-    //         <td>".$row['student_reg_no']."</td>
-    //         <td>";
-        
-    //     if($row['attendance_status']==1)
-    //     {
-    //         $output .="P";
-    //     }
-    //     else
-    //     {
-    //         $output .="A";
-    //     }
 
-    //     $output .="</td>
-    //         <td>".$row['course']."</td>
-    //         <td>".$row['regulation']."</td>
-    //         <td>".$row['branch']."</td>
-    //         <td>".$row['section']."</td>
-    //         <td>".$row['subject']."</td>
-    //         <td>".$row['insert_time']."</td>
-    //     </tr>";
-
-    //     $total++;
-    // }
-
-    // $output .="<tr></tr>
-    //         <tr>
-    //             <th>Total Student</th>
-    //             <td>".$total."</td>
-    //         </tr>
-    //         <tr>
-    //             <th>No. of Present</th>
-    //             <td>".$present."</td>
-    //         </tr>
-    //         <tr>
-    //             <th>No. of Absent</th>
-    //             <td>".$absent."</td>
-    //         </tr>
-    //     ";
-    // $output .="</table>";
+    $sql2="select reg_no, name from faculty_table where reg_no='".$_GET['facultyId']."'";
+    $result2=mysqli_query($conn, $sql2);
+    $row1=mysqli_fetch_assoc($result2);
 
     $output="";
     $output.="
@@ -90,8 +24,8 @@
             <th>Date</th>
         </tr>
         <tr>
-            <td>".strtoupper($_SESSION['reg_no'])."</td>
-            <td>".strtoupper($_SESSION['name'])."</td>
+            <td>".strtoupper($row1['reg_no'])."</td>
+            <td>".strtoupper($row1['name'])."</td>
             <td>".strtoupper($_GET['course'])."</td>
             <td>".strtoupper($_GET['regulation'])."</td>
             <td>".strtoupper($_GET['branch'])."</td>
