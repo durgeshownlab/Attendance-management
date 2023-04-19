@@ -59,12 +59,21 @@
                     <div class="menu" id="attendance">
                         <span><i class="fa-solid fa-address-card"></i></span>attendence 
                     </div>
-                    <div class="menu" id="auth">
+                    <div class="menu" id="subject">
+                        <span><i class="fa-solid fa-book-open"></i></span>Subjects
+                    </div>
+                    <div class="menu" id="section">
+                        <span><i class="fa-brands fa-slack"></i></span>sections
+                    </div>
+                    <div class="menu1" id="take-attendance">
+                        <a href="../facultyView/faculty.php" target="_blank">take Attandance</a> 
+                    </div>
+                    <!-- <div class="menu" id="auth">
                         <span><i class="fa-solid fa-user-shield"></i></span>auth 
                     </div>
                     <div class="menu" id="analytics">
                         <span><i class="fa-solid fa-chart-line"></i></span>analytics 
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -151,6 +160,19 @@
                 });
             }
 
+            //function for loading all the subject details in card only from related department
+            function loadSubject()
+            {
+                $.ajax({
+                    url: "../../api/hodApi/loadSubjectApi.php",
+                    type: "POST",
+                    data: {},
+                    success: function(data){
+                        // console.log(data);
+                        $(".right-container-content").html(data);
+                    }
+                });
+            }
             // on click listener on home tab
             $(document).on("click", "#home", function(){
                 console.log("faculty clicked");
@@ -201,6 +223,25 @@
                 });
             });
 
+            // on click listener on subject tab
+            $(document).on("click", "#subject", function(){
+                console.log("subject clicked");
+                $(".menu").removeClass("active");
+                $("#subject").addClass("active");
+                $('#search-bar').attr('data-tab', 'subject');
+                loadSubject();
+            });
+
+            // on click listener on section tab
+            $(document).on("click", "#section", function(){
+                console.log("section clicked");
+                $(".menu").removeClass("active");
+                $("#section").addClass("active");
+                $('#search-bar').attr('data-tab', 'section');
+                
+                $(".right-container-content").html("sections");
+            });
+            
             // on click listener on auth tab
             $(document).on("click", "#auth", function(){
                 console.log("auth clicked");
@@ -526,8 +567,114 @@
             //preventing search button
 
             $(document).on("click", ".search-btn", function(e){
-                e.preventDefault();
+                e.preventDefault(); 
             });
+
+
+            //on click listener on delete button on subject details card
+            $(document).on("click", ".delete-subject-btn", function(){
+                if(confirm("You Really want to delete this subject"))
+                {
+                    var subjectId=$(this).data("id");
+                    console.log(subjectId);
+
+                    $.ajax({
+                        url: "../../api/hodApi/deleteSubjectApi.php",
+                        type: "POST",
+                        data: {id: subjectId},
+                        success: function(data){
+                            if(data==1)
+                            {
+                                loadSubject();
+                            }
+                            else if(data==0){
+                                alert("Sorry, can't delete this record");
+                            }
+                        }
+                    });
+
+                }
+                else
+                {
+                    alert("deletion cancel");
+                }
+            });
+
+
+            // for showing modal box when user clicked on add faculty 
+            $(document).on("click", ".add-subject-btn-container", function(){
+                $(".modal-box-container").show();
+
+                $.ajax({
+                    url: "../../api/hodApi/loadSubjectForm.php",
+                    type: "POST",
+                    data: {formType: "add"},
+                    success: function(data)
+                    {
+                        $(".modal-box-content").html(data);
+                    }
+                });
+            });
+
+            // for adding subject in database on click on add button 
+            $(document).on("click", "#add-subject-submit-btn", function(e){
+                // $(".modal-box-container").show();
+                e.preventDefault();
+                var reg_no=$("#subject-faculty-reg-no").val();
+                var regulation=$("#subject-regulation").val();
+                var subject=$("#subject-subject").val();
+
+                if(reg_no=='')
+                {
+                    alert("please select registration no");
+                }
+                else if(regulation=='')
+                {
+                    alert("please select regulation");
+                }
+                else if(subject=='')
+                {
+                    alert("please enter subject no");
+                }
+                else
+                {
+                    if(confirm("Are you sure You want to add"))
+                    {
+                        $.ajax({
+                            url: "../../api/hodApi/insertSubjectApi.php",
+                            type: "POST",
+                            data: {reg_no: reg_no, regulation: regulation, subject: subject},
+                            success: function(data)
+                            {
+                                if(data==1)
+                                {
+                                    $(".modal-box-container").hide();
+                                    setTimeout(function() {
+                                        loadSubject();
+                                    }, 500);
+
+                                    // alert("successfully inserted");
+
+                                }
+                                else if(data==0){
+                                    alert("Sorry, can't Add this subject");
+                                }
+                                else if(data==2)
+                                {
+                                    alert("Something went wrong , please try again");
+                                }
+                                else
+                                {
+                                    alert(data);
+                                }
+                            }
+                        });
+                    }
+                }
+
+                
+            });
+
 
 
         });

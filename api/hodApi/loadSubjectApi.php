@@ -2,17 +2,17 @@
     session_start();
     include "../../dbconnect/connect.php";
 
-    $output ='';
-
-    $sql="select sno, reg_no, name, mobile_no, email, branch, profile_img from faculty_table where branch ='".$_SESSION['branch']."' and user_type='faculty'";
+    $sql="select * from subject_table where branch ='".$_SESSION['branch']."'";
     $result=mysqli_query($conn, $sql);
 
+    $output='';
+    
     if(mysqli_num_rows($result)==0)
     {
         $output .='
         <div class="not-found-container">
             <div class="not-found">
-                <h2>No Faculty Exist</h2>
+                <h2>No Subject Exist</h2>
             </div>
         </div>
         ';
@@ -23,40 +23,36 @@
     
         while($row=mysqli_fetch_assoc($result))
         {
+            $sql2="select name from faculty_table where reg_no='{$row['faculty_reg_no']}'";
+            $result2=mysqli_query($conn, $sql2);
+            $row2=mysqli_fetch_assoc($result2);
             $output .='
                 <div class="card">
                     <div class="card-upper">
                         <div class="card-upper-left">
                             <div class="card-detail">
-                                <span></span>'.strtoupper($row['reg_no']).'
+                                <span></span>'.strtoupper($row2['name']).'
                             </div>
                             <div class="card-detail">
-                                <span></span>'.$row['name'].'
+                                <span></span>'.strtoupper($row['faculty_reg_no']).'
                             </div>
                             <div class="card-detail">
-                                <span></span>'.$row['mobile_no'].'
+                                <span></span>'.$row['regulation'].'
                             </div>
                             <div class="card-detail">
-                                <span></span>'.$row['email'].' 
+                                <span></span>'.strtoupper($row['branch']).'
                             </div>
-                        </div>
-                        <div class="card-upper-right">
-                            <div class="card-profile-container">
-                                <div class="card-profile">
-                                    <img src="'.$row["profile_img"].'" alt="">
-                                </div>
-                            </div>
-                            <div class="card-branch">
-                                <span></span>'.$row['branch'].' 
+                            <div class="card-detail">
+                                <span></span>'.$row['subject'].' 
                             </div>
                         </div>
                     </div>
                     <div class="card-lower">
                         <div class="update-btn-container">
-                            <button class="update-btn" data-id="'.$row['sno'].'">update</button>                    
+                            <button class="update-subject-btn" data-id="'.$row['subject_id'].'">update</button>                    
                         </div>
                         <div class="delete-btn-container">
-                            <button class="delete-btn" data-id="'.$row['sno'].'">delete</button>                    
+                            <button class="delete-subject-btn" data-id="'.$row['subject_id'].'">delete</button>                    
                         </div>
                     </div>
                 </div>
@@ -66,9 +62,8 @@
         $output .='</div>';
     
         $output .='
-        <div class="add-faculty-btn-container"><div class="add-faculty-btn"><i class="fa-solid fa-user-plus"></i></div></div>';
+        <div class="add-subject-btn-container"><div class="add-subject-btn"><i class="fa-solid fa-book-medical"></i></div></div>';
     }
 
     echo $output;
-
 ?>
